@@ -2,7 +2,7 @@
 
 import React from 'react';
 import '../../sass/components/_author.scss'
-import {Container , Row , Col , Card } from 'react-bootstrap'
+import {Container , Row , Col , Card, Button } from 'react-bootstrap'
 
 class AuthorDetails extends React.Component{
     render(){
@@ -14,6 +14,7 @@ class AuthorDetails extends React.Component{
                         <Card>
                         {/* <div className='author-detail-img'> */}
                             <Card.Img alt='Author Image' variant="top" src='https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80' />
+                            <Button className='m-2' variant="primary"><h2>Follow</h2></Button>
                         </Card>
                     </Col>
                     <Col md={8}>

@@ -8,6 +8,7 @@ import './App.scss';
 import AuthorDetails from './components/Author/Details';
 import AuthorCard from './components/Author/Card';
 import {Container , Row } from 'react-bootstrap'
+import BookDetails from './components/Book/Details';
 // library.add(faIgloo)
 
 class App extends Component {
@@ -47,16 +48,17 @@ class App extends Component {
     ]
   }
   render() {
-    // return (
-      // <div className="App">
+    return (
+      <div className="App">
+        <BookDetails />
         {/* <AuthorDetails data = {this.state.data}/> */}
-        {/* <Container> */}
-          {/* <Row> */}
-            {/* {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)} */}
-          {/* </Row> */}
-        {/* </Container> */}
-      {/* </div> */}
-    // );
+        {/* <Container>
+          <Row>
+            {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)}
+          </Row>
+        </Container> */}
+      </div>
+    );
   }
 }
 
