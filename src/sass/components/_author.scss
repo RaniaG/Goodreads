@@ -1,0 +1,28 @@
+
+.author{
+    .card { 
+        width: 30rem;
+        &-img-top
+        {
+            width: 100%;
+            height: 25rem;
+        }
+    }
+    &-detail {    
+        .card{
+            &-img-top { 
+                width: 100%; 
+                height: 45rem;
+            }
+        }
+    }
+    & , &-detail{
+        .card{
+            &-title { font-size:  2.5rem}
+            &-text { line-height: 2.8}
+        }
+    }
+}
+
+
+
