@@ -1,0 +1,25 @@
+
+
+.book-detail
+{
+    .card{
+        &-title { font-size:  2.5rem}
+        &-text { line-height: 2.8}
+    }
+    .card { 
+        
+        &-img-top
+        {
+            width: 100%;
+            height: 35rem;
+        }
+    }
+    .btn ,  .dropdown-menu {
+        width: 34rem;
+        font-size: 1.5rem;
+    }
+     .btn{
+        height: 5rem;
+    }
+    
+}
