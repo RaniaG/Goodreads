@@ -14,8 +14,13 @@
     "react": "^16.8.5",
     "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.5",
+<<<<<<< HEAD
     "react-fontawesome": "^1.6.1",
     "react-scripts": "2.1.8"
+=======
+    "react-scripts": "2.1.8",
+    "simpl-schema": "^1.5.5"
+>>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
   },
   "scripts": {
     "start": "react-scripts start",
