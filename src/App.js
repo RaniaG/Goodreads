@@ -5,9 +5,15 @@ import './App.scss';
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faIgloo } from '@fortawesome/free-solid-svg-icons'
+
+//Components
 import AuthorDetails from './components/Author/Details';
 import AuthorCard from './components/Author/Card';
 import {Container , Row } from 'react-bootstrap'
+import Login from './components/Login/Login';
+import AddBook from './components/Add-Book/Add-Book';
+import Rating from './components/Rating/Rating';
+
 // library.add(faIgloo)
 
 class App extends Component {
@@ -47,16 +53,19 @@ class App extends Component {
     ]
   }
   render() {
-    // return (
-      // <div className="App">
-        {/* <AuthorDetails data = {this.state.data}/> */}
-        {/* <Container> */}
-          {/* <Row> */}
-            {/* {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)} */}
-          {/* </Row> */}
-        {/* </Container> */}
-      {/* </div> */}
-    // );
+    return (
+      <div className="App">
+        {/* <AuthorDetails data = {this.state.data}/>  */}
+        {/* <Login /> */}
+        {/* <AddBook /> */}
+        {/* <Rating /> */}
+         {/* <Container> 
+          <Row>
+             {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)} 
+          </Row> 
+        </Container> */}
+       </div>
+     )
   }
 }
 
