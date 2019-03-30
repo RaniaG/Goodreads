@@ -22,9 +22,9 @@ export default class BookDetailedCard extends React.Component {
         }
     }
     render() {
-        const {title, author, avgRating, cover} = this.props
+        const { title, author, avgRating, cover } = this.props
         return (
-            <Card style={{ width: '70rem' }} className="book-card book-card-detailed ">
+            <Card className="book-card book-card-detailed ">
                 <Row className="no-gutters">
                     <Col className="col-md-2">
                         <img src={cover} className="book-card-img" alt={title} />
@@ -32,7 +32,7 @@ export default class BookDetailedCard extends React.Component {
                     <Col className="col-md-7">
                         <Card.Body>
                             <h3 className="book-card-title book-card-title-detailed">{title}</h3>
-                            <h5 className="book-card-author">by {author}</h5>
+                            <h5 className="book-card-author">by {author.name}</h5>
                             <div>
                                 <span><img src="https://66.media.tumblr.com/91e90ae7c571e31c23b41d6b828df97d/tumblr_pp16ebAJmp1tfnoauo1_100.png" alt="rating" /></span>
                                 <span className="card-text"><small className="text-muted book-grey-text"> {avgRating} avg. rating</small></span>
