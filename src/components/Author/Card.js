@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import { Col, Card } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 // import{NavLink} from 'react-router-dom';
 // class AuthorCard extends React.Component {
 //     render(){

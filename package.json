@@ -16,6 +16,8 @@
     "react-dom": "^16.8.5",
     "react-fontawesome": "^1.6.1",
     "react-rater": "^5.0.5",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "simpl-schema": "^1.5.5"
   },

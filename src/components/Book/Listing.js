@@ -80,7 +80,6 @@ export default class BookListing extends React.Component {
             // &&
             // el.bookshelf === filters.bookshelf;
         });
-        debugger;
         const sorting = {
             name: (a, b) => {
                 if (a.title.toLowerCase() < b.title.toLowerCase()) {
@@ -126,10 +125,8 @@ export default class BookListing extends React.Component {
     componentDidMount() {
         this.search();
     }
-    componentDidMount() {
-        this.setState({ data: books });
-    }
     render() {
+        // debugger;
         const { showControls } = this.props;
         const { filters } = this.state;
         return (
