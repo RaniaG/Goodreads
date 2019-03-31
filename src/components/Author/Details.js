@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import '../../sass/components/_author.scss'
+
 import {Container , Row , Col , Card, Button } from 'react-bootstrap'
 
 class AuthorDetails extends React.Component{
