@@ -5,10 +5,12 @@ import HomeComponent from './components/Home/Home';
 import CategoriesList from './components/Categories/Listing';
 import BookListing from './components/Book/Listing';
 import AuthorListing from './components/Author/Listing';
-import UserNavbar from './components/NavBar/UserNavbar';
+import UserNavbar from './components/NavBar/user';
+import AdminNavbar from './components/NavBar/admin';
 import SearchResults from './components/SearchResults/SearchResults';
-
-
+import AuthorDetails from './components/Author/Details';
+import BookDetails from './components/Book/Details';
+import { connect } from 'react-redux';
 //Components
 
 
@@ -16,26 +18,42 @@ import SearchResults from './components/SearchResults/SearchResults';
 class App extends Component {
 
   render() {
-
+    const { user } = this.props;
     return (
       <div className="App">
         <Router>
           <>
-            <UserNavbar />
+            {user.type === 'user' ?
+              <UserNavbar /> :
+              <AdminNavbar />
+            }
             <Switch>
               <Route path="/" exact component={HomeComponent} />
               <Route path="/home" exact component={HomeComponent} />
               <Route path="/search" exact component={SearchResults} />
               <Route path="/search/:value" exact component={SearchResults} />
-              <Route path="/search/category/:id" exact component={SearchResults} />
+              <Route path="/search/category/:category" exact component={SearchResults} />
               <Route path="/categories" exact component={CategoriesList} />
               {/* <Route path="/post/:id" exact component={PostDetails} /> */}
               <Route path="/authors" exact render={(routeProps) => (
-                <AuthorListing {...routeProps} showControls={true} />
+                <AuthorListing {...routeProps} showControls={false} />
               )} />
               <Route path="/books" exact render={(routeProps) => (
-                <BookListing {...routeProps} showControls={true} />
+                <BookListing {...routeProps} showControls={false} />
               )} />
+              <Route path="/author/:id" exact component={AuthorDetails} />
+              <Route path="/book/:id" exact component={BookDetails} />
+
+
+              {/* admin routes */}
+              {/* <Route path="/admin/categories" exact component={} /> */}
+              <Route path="/admin/books" exact render={
+                (props) => <BookListing showControls={true} />
+              } />
+              <Route path="/admin/authors" exact render={
+                (props) => <AuthorListing showControls={true} />
+              } />
+
             </Switch>
           </>
         </Router>
@@ -43,5 +61,7 @@ class App extends Component {
     )
   }
 }
+const mapStateToProps = (state) => ({ user: state.user });
 
-export default App;
+export default connect(mapStateToProps)(App);
+

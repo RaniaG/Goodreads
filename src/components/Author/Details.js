@@ -4,6 +4,7 @@ import React from 'react';
 import '../../sass/components/_author.scss'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import Listing from '../Listing/Listing';
+import AuthorCard from './Card';
 
 
 class AuthorDetails extends React.Component {
@@ -55,9 +56,9 @@ class AuthorDetails extends React.Component {
                 <Container >
                     <Row className='author-detail'>
                         <Col>
-                            <Listing list={this.state.data} viewType='grid' viewControls={false}>
+                            {/* <Listing list={this.state.data} viewType='grid' viewControls={false}>
                                 <AuthorCard />
-                            </Listing>
+                            </Listing> */}
                         </Col>
 
                     </Row>

@@ -1,13 +1,14 @@
 import React from 'react'
-import { Row, Col, Form, Badge } from 'react-bootstrap';
+import { Row, Col, Form, Badge, Button, Modal } from 'react-bootstrap';
 import Listing from '../Listing/Listing';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faBookMedical } from '@fortawesome/free-solid-svg-icons'
 import CardBrief from './Card-brief';
 import BookDetailedCard from './Card-Detailed';
 import books from '../../data/books';
 import Rater from 'react-rater'
 import 'react-rater/lib/react-rater.scss'
+import { connect } from 'react-redux';
 
 
 /**
@@ -18,7 +19,7 @@ import 'react-rater/lib/react-rater.scss'
  *      
  */
 
-export default class BookListing extends React.Component {
+class BookListing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -30,11 +31,20 @@ export default class BookListing extends React.Component {
                 category: this.props.categories || [],
                 rating: [],
                 language: []
-            }
+            },
+            addBookView: false
         }
         this.search = this.search.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.showAddBook = this.showAddBook.bind(this);
+        this.closeAddBook = this.closeAddBook.bind(this);
+    }
+    showAddBook() {
+        this.setState({ addBookView: true });
+    }
+    closeAddBook() {
+        this.setState({ addBookView: false });
     }
     handleTextInput(event) {
         this.setState({ filters: { ...this.state.filters, search: event.target.value } });
@@ -227,6 +237,27 @@ export default class BookListing extends React.Component {
                                 }
 
                             </div>
+                            {
+                                this.props.userType === 'admin' &&
+                                <div className="d-flex justify-content-end pr-5">
+                                    <Button variant="primary" onClick={this.showAddBook}>
+                                        <FontAwesomeIcon icon={faBookMedical} size="3x" />
+                                    </Button>
+                                </div>}
+                            <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Add new Book</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={this.closeAddBook}>
+                                        Close
+                                  </Button>
+                                    <Button variant="primary" onClick={this.closeAddBook}>
+                                        Save Changes
+                                  </Button>
+                                </Modal.Footer>
+                            </Modal>
                             <Listing list={this.state.data} viewType='list' viewControls={true}>
                                 <BookDetailedCard />
                                 <CardBrief />
@@ -241,3 +272,4 @@ export default class BookListing extends React.Component {
         )
     }
 }
+export default connect(function (state) { return { userType: state.user.type } })(BookListing);

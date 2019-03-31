@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Navbar, Nav, Form } from 'react-bootstrap';
+import { withRouter } from "react-router";
 
 
-export default class UserNavbar extends React.Component {
+
+class UserNavbar extends React.Component {
     constructor(props) {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
@@ -16,15 +18,14 @@ export default class UserNavbar extends React.Component {
     }
     onSubmit(e) {
         e.preventDefault();
-        this.setState({ redirect: true });
+        // this.setState({ redirect: true });
+        this.props.history.push('/search/' + this.state.searchValue)
     }
     handleTextInput(event) {
         this.setState({ searchValue: event.target.value });
     }
     render() {
-        if (this.state.redirect) {
-            return <Redirect to={'/search/' + this.state.searchValue} />
-        }
+
         return (
             <Navbar bg="light" expand="lg" className="p-4">
                 <Navbar.Brand >
@@ -44,4 +45,6 @@ export default class UserNavbar extends React.Component {
             </Navbar>
         )
     }
-} 
+}
+
+export default withRouter(UserNavbar);
