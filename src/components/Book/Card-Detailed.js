@@ -13,7 +13,7 @@ export default class BookDetailedCard extends React.Component {
     handleClick(e) {
         const value = e.target.value;
         this.setState({
-            shelf: value,
+            shelf: value, 
         })
         if (value === 'Read') {
             this.setState({
@@ -26,10 +26,10 @@ export default class BookDetailedCard extends React.Component {
         return (
             <Card style={{ width: '70rem' }} className="book-card book-card-detailed ">
                 <Row className="no-gutters">
-                    <Col className="col-md-2">
+                    <Col md={2}>
                         <img src={cover} className="book-card-img" alt={title} />
                     </Col>
-                    <Col className="col-md-7">
+                    <Col md={7}>
                         <Card.Body>
                             <h3 className="book-card-title book-card-title-detailed">{title}</h3>
                             <h5 className="book-card-author">by {author}</h5>
@@ -39,7 +39,7 @@ export default class BookDetailedCard extends React.Component {
                             </div>
                         </Card.Body>
                     </Col>
-                    <Col className="col-md-3 shelfDropdown-container">
+                    <Col md={3} className="shelfDropdown-container">
                         <Dropdown as={ButtonGroup} size="lg" >
                             <Button className="shelfDropdown-btn">{this.state.shelf}</Button>
                             <Dropdown.Toggle split id="dropdown-split-basic" className="shelfDropdown-btn" />

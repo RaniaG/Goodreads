@@ -9,17 +9,18 @@ import './App.scss';
 // import AuthorCard from './components/Author/Card';
 // import { Container, Row } from 'react-bootstrap';
 // library.add(faIgloo)
-import AuthorDetails from './components/Author/Details';
-import AuthorCard from './components/Author/Card';
-import BookDetails from './components/Book/Details';
-import { Container, Row, Col } from 'react-bootstrap'
-import CategoriesList from './components/Categories/Listing';
-import BookListing from './components/Book/Listing';
-import SignUp from './components/Signup/Signup';
+// import AuthorDetails from './components/Author/Details';
+// import AuthorCard from './components/Author/Card';
+// import BookDetails from './components/Book/Details';
+// import { Container, Row, Col } from 'react-bootstrap'
+// import CategoriesList from './components/Categories/Listing';
+// import BookListing from './components/Book/Listing';
+// import SignUp from './components/Signup/Signup';
 
 
 // Aliaa imports
-// import BooksList from './components/Book/List';
+//  import BooksList from './components/Book/List';
+
 
 class App extends Component {
   state =

@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col } from 'react-bootstrap';
 
 class CategoriesList extends React.Component {
-
     render() {
         return (
             <Row className="justify-content-center no-gutters">
@@ -18,7 +17,10 @@ class CategoriesList extends React.Component {
                                         <li className="u-link" >Sub category</li>
                                         <li className="u-link" >Sub category</li>
                                         <li className="u-link" >Sub category</li>
-
+                                        <li className="u-link" >Sub category</li>
+                                        <li className="u-link" >Sub category</li>
+                                        <li className="u-link" >Sub category</li>
+                                        <li className="u-link" >Sub category</li>
                                     </ul>
                                 </Col>
                                 <Col md={12} className="u-bg-grey m-2 p-4">
