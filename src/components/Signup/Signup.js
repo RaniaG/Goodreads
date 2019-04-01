@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+
 import { Form, Button, Overlay, Tooltip } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 
@@ -10,13 +12,16 @@ export default class SignUp extends React.Component {
             input: {
                 email: '',
                 name: '',
-                password: ''
+                password: '',
+                passwordConfirm: ''
             },
             error: {
                 email: false,
                 name: false,
-                password: false
-            }
+                password: false,
+                passwordConfirm: false
+            },
+            valErrors: 0
 
         }
         this.validation = new SimpleSchema({
@@ -39,6 +44,10 @@ export default class SignUp extends React.Component {
                 min: 5,
                 max: 150,
                 optional: false
+            },
+            passwordConfirm: {
+                type: String,
+                optional: false
             }
         }).newContext();
         this.inputHandler = this.inputHandler.bind(this);
@@ -47,17 +56,21 @@ export default class SignUp extends React.Component {
     }
     inputHandler(event) {
         // debugger;
+        const newInput = { ...this.state.input, [event.target.name]: event.target.value }
         this.validation.validate( //to validate all inputs each time
-            { ...this.state.input, [event.target.name]: event.target.value }
+            newInput
         );
         //to reset the input validation state and capture and valid after invalid
-        let temp = { name: false, email: false, password: false };
+        let temp = { name: false, email: false, password: false, passwordConfirm: false };
         this.validation.validationErrors().forEach((el) => {
             temp[el.name] = true; //to capture any invalid values
         })
+        if (newInput.password !== newInput.passwordConfirm)
+            temp.passwordConfirm = true;
         this.setState({
             input: { ...this.state.input, [event.target.name]: event.target.value },
-            error: { ...temp }
+            error: temp,
+            valErrors: this.validation.validationErrors().length
         });
 
     }
@@ -66,14 +79,27 @@ export default class SignUp extends React.Component {
         this.validation.validate(
             { ...this.state.input }
         );
-        if (this.validation.validationErrors().length == 0) {
+        const errors = this.validation.validationErrors();
+        if (errors.length === 0) {
+
+        } else {
+            let temp = { name: false, email: false, password: false, passwordConfirm: false };
+            this.validation.validationErrors().forEach((el) => {
+                temp[el.name] = true; //to capture any invalid values
+            })
+            this.setState({
+                error: temp,
+                valErrors: this.validation.validationErrors().length
+            });
         }
     }
     render() {
         const { error, input } = this.state;
         return (
-            <Form className="d-flex flex-column" onSubmit={this.onSubmit}>
-                <h2>New here? Create a free account!</h2>
+            <Form className="d-flex flex-column signup" onSubmit={this.onSubmit}>
+                <div className="signup__text">Already have an account? <Link to="/Login">Sign in</Link></div>
+
+                <div className="signup__header">New here? Create a free account!</div>
                 <Form.Group >
                     <Form.Control size="lg" className={error.name && 'is-invalid'} value={input.name} type="text" name="name" placeholder="Your Name" onChange={this.inputHandler} />
                 </Form.Group>
@@ -83,9 +109,10 @@ export default class SignUp extends React.Component {
                 <Form.Group>
 
                     <Form.Control ref={this.passRef} size="lg" className={error.password && 'is-invalid'} value={input.password} type="password" name="password" placeholder="Password" onChange={this.inputHandler} />
-                    <Overlay target={this.state.target} show={error.password} placement="bottom">
+
+                    <Overlay target={this.state.target} show={error.password} placement="left">
                         {props => (
-                            <Tooltip id="overlay-example" {...props}>
+                            <Tooltip  {...props}>
                                 * Password must be at least 8 characters long
                                 and contain 1 lowercase letter and 1 uppercase letter
                                 and 1 special character
@@ -93,7 +120,14 @@ export default class SignUp extends React.Component {
                         )}
                     </Overlay>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Form.Group>
+                    <Form.Control size="lg" className={error.passwordConfirm && 'is-invalid'} value={input.passwordConfirm} type="password" name="passwordConfirm" placeholder="Confirm Password" onChange={this.inputHandler} />
+
+                </Form.Group>
+                <Form.Group>
+                    Image: <input type="file" name="myFile" />
+                </Form.Group>
+                <Button className="signup__submit" type="submit" disabled={this.state.valErrors > 0}>
                     Submit
                 </Button>
             </Form>

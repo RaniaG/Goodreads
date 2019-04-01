@@ -2,6 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Navbar, Nav, Form } from 'react-bootstrap';
 import { withRouter } from "react-router";
+import { connect } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -25,26 +28,30 @@ class UserNavbar extends React.Component {
         this.setState({ searchValue: event.target.value });
     }
     render() {
-
+        const { userImage } = this.props;
         return (
-            <Navbar bg="light" expand="lg" className="p-4">
+            <Navbar expand="lg" className=" navigation">
                 <Navbar.Brand >
-                    <h3>BadReads</h3>
+                    <h1 className="navigation__logo"><FontAwesomeIcon icon={faBookmark} /> AwesomeReads</h1>
                 </Navbar.Brand>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Link to="/home" className="nav-link">Home</Link>
-                        <Link to="/categories" className="nav-link">Categories</Link>
-                        <Link to="/books" className="nav-link" >Books</Link>
-                        <Link to="/authors" className="nav-link">Authors</Link>
+                        <Link to="/home" className="navigation__link">Home</Link>
+                        <Link to="/categories" className="navigation__link">Categories</Link>
+                        <Link to="/books" className="navigation__link">Books</Link>
+                        <Link to="/authors" className="navigation__link">Authors</Link>
                     </Nav>
                     <Form onSubmit={this.onSubmit} >
                         <Form.Control size="lg" value={this.state.searchValue} type="text" placeholder="Search" onChange={this.handleTextInput} />
                     </Form>
+                    <Link to="/profile">
+                        <div className="navigation__user" style={{ backgroundImage: `url(${userImage})` }}></div>
+
+                    </Link>
                 </Navbar.Collapse>
             </Navbar>
         )
     }
 }
-
-export default withRouter(UserNavbar);
+const mapState2Props = (state) => ({ userImage: state.user.photo });
+export default connect(mapState2Props)(withRouter(UserNavbar))
