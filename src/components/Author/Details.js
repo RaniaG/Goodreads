@@ -7,6 +7,7 @@ import authors from '../../data/authors';
 import CardBrief from '../Book/Card-brief';
 import books from '../../data/books';
 
+
 class AuthorDetails extends React.Component {
 
     state = {
@@ -63,7 +64,6 @@ class AuthorDetails extends React.Component {
                 <Container >
                     <Row className='author-detail'>
                         <Col>
-                        
                             <Listing list={this.state.data} viewType='grid' viewControls={false}>
                                 <CardBrief />
                             </Listing>

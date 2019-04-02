@@ -1,6 +1,7 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 /*fonts*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei');
 
 @import 'abstracts/variables';
 @import 'abstracts/functions';
@@ -11,11 +12,25 @@
 @import 'base/animations';
 @import 'base/typography';
 @import 'base/utilities';
+
+//layoyt
 @import 'layout/navigation';
 @import 'layout/header';
 @import 'layout/footer';
+@import 'layout/content';
 // @import 'component/';
 @import 'components/book';
+<<<<<<< HEAD
 @import 'components/author';
 
+=======
+@import 'components/Book';
+@import 'components/tabs';
+@import 'components/signup';
+
+
+//pages
+
+@import 'pages/home';
+>>>>>>> 5b43cba026559d44a8ee7dd32745e91f49ec54e7
 

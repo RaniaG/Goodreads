@@ -5,14 +5,14 @@ import BookListing from '../Book/Listing';
 
 const SearchResults = (props) => {
     console.log(props);
-    const { searchValue, category } = props.match.params;
+    const { value, category } = props.match.params;
     return (
-        <Tabs defaultActiveKey="books" id="uncontrolled-tab-example">
+        <Tabs defaultActiveKey="books" id="uncontrolled-tab-example" className="justify-content-center">
             <Tab eventKey="books" title="Books">
-                <BookListing showControls={true} searchValue={searchValue || ""} categories={category && [category]} />
+                <BookListing showControls={true} searchValue={value || ""} categories={category && [category]} />
             </Tab>
             <Tab eventKey="authors" title="Authors">
-                <AuthorListing showControls={true} searchValue={searchValue || ""} />
+                <AuthorListing showControls={true} searchValue={value || ""} categories={category && [category]} />
             </Tab>
         </Tabs>
     )

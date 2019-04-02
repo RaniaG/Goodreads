@@ -1,11 +1,13 @@
 import React from 'react'
-import { Row, Col, Form, Badge } from 'react-bootstrap';
+import { Row, Col, Form, Badge, Button, Modal } from 'react-bootstrap';
 import Listing from '../Listing/Listing';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
 import authors from '../../data/authors';
 import Rater from 'react-rater'
 import AuthorCard from './Card';
+import { connect } from 'react-redux';
+
 
 
 /**
@@ -16,7 +18,7 @@ import AuthorCard from './Card';
  *      
  */
 
-export default class AuthorListing extends React.Component {
+class AuthorListing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,11 +28,20 @@ export default class AuthorListing extends React.Component {
                 sort: "name",
                 category: this.props.categories || [],
                 rating: [],
-            }
+            },
+            addAuthorView: false
         }
         this.search = this.search.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.showAddAuthor = this.showAddAuthor.bind(this);
+        this.closeAddAuthor = this.closeAddAuthor.bind(this);
+    }
+    showAddAuthor() {
+        this.setState({ addAuthorView: true });
+    }
+    closeAddAuthor() {
+        this.setState({ addAuthorView: false });
     }
     handleTextInput(event) {
         this.setState({ filters: { ...this.state.filters, search: event.target.value } });
@@ -176,6 +187,29 @@ export default class AuthorListing extends React.Component {
                                 }
 
                             </div>
+                            {
+                                this.props.userType === 'admin' &&
+                                <div className="d-flex justify-content-end pr-5">
+                                    <Button variant="primary" onClick={this.showAddAuthor}>
+                                        <FontAwesomeIcon icon={faUserPlus} size="2x" />
+                                    </Button>
+                                </div>
+
+                            }
+                            <Modal show={this.state.addAuthorView} onHide={this.closeAddAuthor}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Add new Author</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={this.closeAddAuthor}>
+                                        Close
+                                  </Button>
+                                    <Button variant="primary" onClick={this.closeAddAuthor}>
+                                        Save Changes
+                                  </Button>
+                                </Modal.Footer>
+                            </Modal>
                             <Listing list={this.state.data} viewType='grid' viewControls={false}>
                                 <AuthorCard />
                             </Listing>
@@ -189,3 +223,4 @@ export default class AuthorListing extends React.Component {
         )
     }
 }
+export default connect(function (state) { return { userType: state.user.type } })(AuthorListing);
