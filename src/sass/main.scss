@@ -1,4 +1,6 @@
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
 /*fonts*/
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
 
 @import 'abstracts/variables';
 @import 'abstracts/functions';
@@ -15,4 +17,5 @@
 // @import 'component/';
 @import 'components/book';
 @import 'components/author';
+
 
