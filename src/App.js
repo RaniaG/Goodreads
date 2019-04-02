@@ -5,14 +5,8 @@ import HomeComponent from './components/Home/Home';
 import CategoriesList from './components/Categories/Listing';
 import BookListing from './components/Book/Listing';
 import AuthorListing from './components/Author/Listing';
-<<<<<<< HEAD
-import AuthorDetails from './components/Author/Details';
-import AddAuthor from './components/Author/Add';
-import UserNavbar from './components/NavBar/UserNavbar';
-=======
 import UserNavbar from './components/NavBar/user';
 import AdminNavbar from './components/NavBar/admin';
->>>>>>> 5b43cba026559d44a8ee7dd32745e91f49ec54e7
 import SearchResults from './components/SearchResults/SearchResults';
 import AuthorDetails from './components/Author/Details';
 import BookDetails from './components/Book/Details';
@@ -29,27 +23,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <>
-<<<<<<< HEAD
-            <UserNavbar />
-            <Switch>
-              <Route path="/" exact component={HomeComponent} />
-              <Route path="/home" exact component={HomeComponent} />
-              <Route path="/search" exact component={SearchResults} />
-              <Route path="/search/:value" exact component={SearchResults} />
-              <Route path="/search/category/:id" exact component={SearchResults} />
-              <Route path="/categories" exact component={CategoriesList} />
-              {/* <Route path="/post/:id" exact component={PostDetails} /> */}
-              <Route path="/authors" exact render={(routeProps) => (
-                <AuthorListing {...routeProps} showControls={true} />
-              )} />
-              <Route path="/books" exact render={(routeProps) => (
-                <BookListing {...routeProps} showControls={true} />
-              )} />
-              {/* <Route exact path="/author/add" component={AddAuthor} ></Route> */}
-              <Route exact path="/author/edit" component={AddAuthor} ></Route>
-              <Route exact path="/author/:id" component={AuthorDetails} ></Route>
-            </Switch>
-=======
+
             {user.type === 'user' ?
               <UserNavbar /> :
               <AdminNavbar />
@@ -72,20 +46,23 @@ class App extends Component {
                 <Route path="/author/:id" exact component={AuthorDetails} />
                 <Route path="/book/:id" exact component={BookDetails} />
                 <Route path="/login" exact component={Login} />
+                {/* <Route exact path="/author/add" component={AddAuthor} ></Route> */}
+                {/* <Route exact path="/author/edit" component={AddAuthor} ></Route> */}
+                <Route exact path="/author/:id" component={AuthorDetails} ></Route>
 
 
                 {/* admin routes */}
                 {/* <Route path="/admin/categories" exact component={} /> */}
                 <Route path="/admin/books" exact render={
-                  (props) => <BookListing showControls={true} />
+                  (props) => <BookListing showControls={true} showSearchbox={true} {...props} />
                 } />
                 <Route path="/admin/authors" exact render={
-                  (props) => <AuthorListing showControls={true} />
+                  (props) => <AuthorListing showControls={true} showSearchbox={true}{...props} />
                 } />
 
               </Switch>
             </div>
->>>>>>> 5b43cba026559d44a8ee7dd32745e91f49ec54e7
+
           </>
         </Router>
       </div>

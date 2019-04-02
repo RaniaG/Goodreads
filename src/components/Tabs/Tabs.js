@@ -18,12 +18,12 @@ export default class TabsComponent extends React.Component {
 
     render() {
         // debugger;
-        const { children } = this.props;
+        const { children, position, style } = this.props;
         const { headers, activeIndex } = this.state;
         return (
 
             <div className="Tabs">
-                <div className="Tabs__headers">
+                <div className={`Tabs__headers Tabs__headers--${style || 'primary'} ${position || 'center'}`}>
                     {headers.map((el, index) => <div className={index === this.state.activeIndex ? 'active' : ''} onClick={this.changeIndex(index)} key={el}>{el}</div>)}
                 </div>
                 <div>

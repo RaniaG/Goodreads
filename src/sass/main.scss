@@ -18,19 +18,21 @@
 @import 'layout/header';
 @import 'layout/footer';
 @import 'layout/content';
+@import 'layout/section';
+
 // @import 'component/';
 @import 'components/book';
-<<<<<<< HEAD
 @import 'components/author';
 
-=======
 @import 'components/Book';
 @import 'components/tabs';
 @import 'components/signup';
-
+@import 'components/heading';
+@import 'components/card-slider';
+@import 'components/filters';
+@import 'components/buttons';
 
 //pages
 
 @import 'pages/home';
->>>>>>> 5b43cba026559d44a8ee7dd32745e91f49ec54e7
 

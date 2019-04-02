@@ -60,17 +60,30 @@ export default class SignUp extends React.Component {
         this.validation.validate( //to validate all inputs each time
             newInput
         );
-        //to reset the input validation state and capture and valid after invalid
-        let temp = { name: false, email: false, password: false, passwordConfirm: false };
-        this.validation.validationErrors().forEach((el) => {
-            temp[el.name] = true; //to capture any invalid values
-        })
+        //to validate only one input at a time
+        const index = this.validation.validationErrors().findIndex(el => el.name === event.target.name);
+        let temp;
+        if (index > -1)
+            temp = { [event.target.name]: true };
+        else
+            temp = { [event.target.name]: false };
+
         if (newInput.password !== newInput.passwordConfirm)
             temp.passwordConfirm = true;
+        // debugger;
+        //for submit button
+        let invalid = false;
+        const errors = { ...this.state.error, ...temp };
+        for (const key in errors) {
+            if (errors[key]) {
+                invalid = true;
+                break;
+            }
+        }
         this.setState({
             input: { ...this.state.input, [event.target.name]: event.target.value },
-            error: temp,
-            valErrors: this.validation.validationErrors().length
+            error: { ...this.state.error, ...temp }, //for form controls
+            valErrors: invalid //for submit button
         });
 
     }
@@ -80,16 +93,28 @@ export default class SignUp extends React.Component {
             { ...this.state.input }
         );
         const errors = this.validation.validationErrors();
-        if (errors.length === 0) {
+        if (errors.length === 0 && this.state.input.password === this.state.input.passwordConfirm) {
 
         } else {
             let temp = { name: false, email: false, password: false, passwordConfirm: false };
             this.validation.validationErrors().forEach((el) => {
                 temp[el.name] = true; //to capture any invalid values
             })
+            if (this.state.input.password !== this.state.input.passwordConfirm)
+                temp.passwordConfirm = true;
+
+            //for submit button disabling
+            let invalid = false;
+            const { error } = this.state;
+            for (const key in error) {
+                if (error[key]) {
+                    invalid = true;
+                    break;
+                }
+            }
             this.setState({
                 error: temp,
-                valErrors: this.validation.validationErrors().length
+                valErrors: invalid
             });
         }
     }
@@ -127,9 +152,9 @@ export default class SignUp extends React.Component {
                 <Form.Group>
                     Image: <input type="file" name="myFile" />
                 </Form.Group>
-                <Button className="signup__submit" type="submit" disabled={this.state.valErrors > 0}>
+                <button className="signup__submit" type="submit" disabled={this.state.valErrors}>
                     Submit
-                </Button>
+                </button>
             </Form>
         )
     }

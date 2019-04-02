@@ -7,6 +7,9 @@
         color:$color-blue;
         background-color: transparent;
         border-color: $color-blue;
+        border:0.1rem solid $color-blue;
+        border-radius: 0.5rem;
+        transition-duration: 0.2s;
         &:hover{
             color:white;
             background-color: $color-blue;

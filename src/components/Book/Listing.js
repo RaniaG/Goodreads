@@ -137,18 +137,18 @@ class BookListing extends React.Component {
     }
     render() {
         // debugger;
-        const { showControls } = this.props;
+        const { showControls, showSearchbox } = this.props;
         const { filters } = this.state;
         return (
             <Row className="no-gutters">
                 <Col md={12}>
-                    {showControls && <Row className="justify-content-end bg-info p-4 no-gutters">
+                    {showControls && <Row className="justify-content-end  p-4 no-gutters">
                         <Col md={6} className="d-flex flex-row justify-content-end align-items-center">
-                            <div className="mr-3">
+                            {showSearchbox && <div className="mr-3">
                                 <Form onSubmit={this.onSubmit}>
                                     <Form.Control size="lg" value={this.state.filters.search} type="text" placeholder="Search" onChange={this.handleTextInput} />
                                 </Form>
-                            </div>
+                            </div>}
                             <select name="SortBy" onChange={this.updateFilter('sort')} >
                                 <option value="name">Sort by: Name</option>
                                 <option value="author">Sort by: Author</option>
@@ -157,31 +157,31 @@ class BookListing extends React.Component {
                             </select>
                         </Col>
                     </Row>}
-                    <Row className="no-gutters">
-                        {showControls && <Col md={3} className="bg-light p-5">
-                            <h3 className="font-weight-bold">Bookshelves</h3>
+                    <Row className="no-gutters justify-content-center">
+                        {showControls && <Col md={3} className="filters">
+                            <h3 className="filters__title">Bookshelves</h3>
                             <ul>
-                                <li className="d-flex u-link justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'all')} disabled={filters.bookshelf === 'all'}>All
+                                <li className="d-flex filters__item justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'all')} disabled={filters.bookshelf === 'all'}>All
                                     <Badge pill variant="primary">50000</Badge>
                                 </li>
-                                <li className="d-flex u-link justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'read')} disabled={filters.bookshelf === 'read'}>Read
+                                <li className="d-flex  filters__item justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'read')} disabled={filters.bookshelf === 'read'}>Read
                                     <Badge pill variant="primary">10</Badge>
                                 </li>
-                                <li className="d-flex u-link justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'currentlyreading')} disabled={filters.bookshelf === 'currentlyreading'}>Currently reading
+                                <li className="d-flex  filters__item justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'currentlyreading')} disabled={filters.bookshelf === 'currentlyreading'}>Currently reading
                                     <Badge pill variant="primary">1</Badge>
                                 </li>
                             </ul>
-                            <h3 className="font-weight-bold">Category</h3>
+                            <h3 className="filters__title">Category</h3>
                             <ul className="u-list-no-bullet">
-                                <li className="u-link" onClick={this.addFilter('category', 'Fiction')}>Fiction</li>
-                                <li className="u-link" onClick={this.addFilter('category', 'Mystery')}>Mystery</li>
-                                <li className="u-link" onClick={this.addFilter('category', 'Horror')}>Horror</li>
-                                <li className="u-link" onClick={this.addFilter('category', 'Romance')}>Romance</li>
-                                <li className="u-link" onClick={this.addFilter('category', 'Thriller')}>Thriller</li>
+                                <li className=" filters__item " onClick={this.addFilter('category', 'Fiction')}>Fiction</li>
+                                <li className=" filters__item " onClick={this.addFilter('category', 'Mystery')}>Mystery</li>
+                                <li className=" filters__item " onClick={this.addFilter('category', 'Horror')}>Horror</li>
+                                <li className=" filters__item " onClick={this.addFilter('category', 'Romance')}>Romance</li>
+                                <li className=" filters__item " onClick={this.addFilter('category', 'Thriller')}>Thriller</li>
                             </ul>
-                            <h3 className="font-weight-bold">Reviews</h3>
+                            <h3 className="filters__title">Reviews</h3>
                             <ul className="u-list-no-bullet">
-                                <li onClick={this.addFilter('rating', 5)}>
+                                <li onClick={this.addFilter('rating', 5)} className=" filters__item ">
                                     <Rater rating={5} total={5} interactive={false} />
                                     {/* <FontAwesomeIcon icon={faStar} className="checked" />
                                     <FontAwesomeIcon icon={faStar} className="checked" />
@@ -189,75 +189,78 @@ class BookListing extends React.Component {
                                     <FontAwesomeIcon icon={faStar} className="checked" />
                                     <FontAwesomeIcon icon={faStar} className="checked" /> */}
                                 </li>
-                                <li onClick={this.addFilter('rating', 4)}>
+                                <li onClick={this.addFilter('rating', 4)} className=" filters__item ">
                                     <Rater rating={4} total={5} interactive={false} />
                                 </li>
-                                <li onClick={this.addFilter('rating', 3)}>
+                                <li onClick={this.addFilter('rating', 3)} className=" filters__item ">
                                     <Rater rating={3} total={5} interactive={false} />
                                 </li>
-                                <li onClick={this.addFilter('rating', 2)}>
+                                <li onClick={this.addFilter('rating', 2)} className=" filters__item ">
                                     <Rater rating={2} total={5} interactive={false} />
                                 </li>
-                                <li onClick={this.addFilter('rating', 1)}>
+                                <li onClick={this.addFilter('rating', 1)} className=" filters__item ">
                                     <Rater rating={1} total={5} interactive={false} />
                                 </li>
 
                             </ul>
-                            <h3 className="font-weight-bold">Language</h3>
+                            <h3 className="filters__title">Language</h3>
                             <ul className="u-list-no-bullet">
-                                <li className="u-link" onClick={this.addFilter('language', 'English')} >English</li>
-                                <li className="u-link" onClick={this.addFilter('language', 'Arabic')} >Arabic</li>
-                                <li className="u-link" onClick={this.addFilter('language', 'French')} >French</li>
+                                <li className=" filters__item " onClick={this.addFilter('language', 'English')} >English</li>
+                                <li className=" filters__item " onClick={this.addFilter('language', 'Arabic')} >Arabic</li>
+                                <li className=" filters__item " onClick={this.addFilter('language', 'French')} >French</li>
                             </ul>
                         </Col>
-                        } <Col md={showControls ? 9 : 12}>
-                            <div className="d-flex flex-row mt-4">
+                        } <Col md={9}>
+                            <div className="d-flex flex-row mt-4 flex-wrap">
                                 {
                                     filters.category.map((el) =>
-                                        <Badge pill variant="info" key={el} className="d-flex align-items-center">
+                                        <div key={el} className="filters__tag">
                                             {el}
                                             <FontAwesomeIcon icon={faTimesCircle} size="2x" className="ml-2" onClick={this.removeFilter('category', el)} />
-                                        </Badge>
+                                        </div>
                                     )
                                 }{
                                     filters.language.map((el) =>
-                                        <Badge pill variant="info" key={el} className="d-flex align-items-center">
+                                        <div key={el} className="filters__tag">
                                             {el}
                                             <FontAwesomeIcon icon={faTimesCircle} size="2x" className="ml-2" onClick={this.removeFilter('language', el)} />
-                                        </Badge>
+                                        </div>
                                     )
                                 }
                                 {
                                     filters.rating.map((el) =>
-                                        <Badge pill variant="info" key={el} className="d-flex align-items-center">
+                                        <div className="filters__tag" key={el} >
                                             Rating: {el}
                                             <FontAwesomeIcon icon={faTimesCircle} size="2x" className="ml-2" onClick={this.removeFilter('rating', el)} />
-                                        </Badge>
+                                        </div>
                                     )
                                 }
 
                             </div>
                             {
                                 this.props.userType === 'admin' &&
-                                <div className="d-flex justify-content-end pr-5">
-                                    <Button variant="primary" onClick={this.showAddBook}>
-                                        <FontAwesomeIcon icon={faBookMedical} size="3x" />
-                                    </Button>
-                                </div>}
-                            <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Add new Book</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={this.closeAddBook}>
-                                        Close
+                                <>
+                                    <div className="d-flex justify-content-end pr-5">
+                                        <button className="button button--1" onClick={this.showAddBook}>
+                                            <FontAwesomeIcon icon={faBookMedical} size="2x" />
+                                        </button>
+                                    </div>
+                                    <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
+                                        <Modal.Header closeButton>
+                                            <Modal.Title>Add new Book</Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+                                        <Modal.Footer>
+                                            <Button variant="secondary" onClick={this.closeAddBook}>
+                                                Close
                                   </Button>
-                                    <Button variant="primary" onClick={this.closeAddBook}>
-                                        Save Changes
+                                            <Button variant="primary" onClick={this.closeAddBook}>
+                                                Save Changes
                                   </Button>
-                                </Modal.Footer>
-                            </Modal>
+                                        </Modal.Footer>
+                                    </Modal>
+                                </>
+                            }
                             <Listing list={this.state.data} viewType='list' viewControls={true}>
                                 <BookDetailedCard />
                                 <CardBrief />
