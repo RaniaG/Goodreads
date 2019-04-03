@@ -2,13 +2,12 @@ import React from 'react'
 import { Row, Col, Form, Badge, Button, Modal } from 'react-bootstrap';
 import Listing from '../Listing/Listing';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faBookMedical } from '@fortawesome/free-solid-svg-icons'
-import CardBrief from './Card-brief';
-import BookDetailedCard from './Card-Detailed';
-import books from '../../data/books';
+import { faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import authors from '../../data/authors';
 import Rater from 'react-rater'
-import 'react-rater/lib/react-rater.scss'
+import AuthorCard from './Card';
 import { connect } from 'react-redux';
+
 
 
 /**
@@ -19,7 +18,7 @@ import { connect } from 'react-redux';
  *      
  */
 
-class BookListing extends React.Component {
+class AuthorListing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,39 +26,38 @@ class BookListing extends React.Component {
             filters: {
                 search: this.props.searchValue || "",
                 sort: "name",
-                bookshelf: "all",
                 category: this.props.categories || [],
                 rating: [],
-                language: []
             },
-            addBookView: false
+            addAuthorView: false
         }
         this.search = this.search.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
-        this.showAddBook = this.showAddBook.bind(this);
-        this.closeAddBook = this.closeAddBook.bind(this);
+        this.showAddAuthor = this.showAddAuthor.bind(this);
+        this.closeAddAuthor = this.closeAddAuthor.bind(this);
     }
-    showAddBook() {
-        this.setState({ addBookView: true });
+    showAddAuthor() {
+        this.setState({ addAuthorView: true });
     }
-    closeAddBook() {
-        this.setState({ addBookView: false });
+    closeAddAuthor() {
+        this.setState({ addAuthorView: false });
     }
     handleTextInput(event) {
         this.setState({ filters: { ...this.state.filters, search: event.target.value } });
     }
-    updateFilter(filter, value) {
+    updateFilter(filter) {
         return (event) => {
-            this.setState({ filters: { ...this.state.filters, [filter]: value || event.target.value } })
-            this.search({ ...this.state.filters, [filter]: value || event.target.value });
+            this.setState({ filters: { ...this.state.filters, [filter]: event.target.value } });
+            this.search({ ...this.state.filters, [filter]: event.target.value });
         }
     }
     addFilter(filter, value) {
         return (event) => {
+            debugger;
             const { filters } = this.state;
             if (!filters[filter].includes(value)) {
-                this.setState({ filters: { ...filters, [filter]: [...filters[filter], value] } })
+                this.setState({ filters: { ...filters, [filter]: [...filters[filter], value] } });
                 this.search({ ...filters, [filter]: [...filters[filter], value] });
             }
         }
@@ -79,50 +77,29 @@ class BookListing extends React.Component {
     }
     search(newFilters) {
         const filters = newFilters || this.state.filters;
-        const filteredData = books.filter((el) => {
+        const filteredData = authors.filter((el) => {
             return ((filters.category.length > 0 && filters.category.includes(el.category)) || filters.category.length === 0)
                 &&
-                ((filters.rating.length > 0 && filters.rating.includes(Math.round(el.avgRating))) || filters.rating.length === 0)
+                ((filters.rating.length > 0 && filters.rating.includes(Math.round(el.rating))) || filters.rating.length === 0)
                 &&
-                ((filters.language.length > 0 && filters.language.includes(el.language)) || filters.language.length === 0)
-                &&
-                el.title.toLowerCase().includes(filters.search.toLowerCase())
-            // &&
-            // el.bookshelf === filters.bookshelf;
+                el.name.toLowerCase().includes(filters.search.toLowerCase());
         });
         const sorting = {
             name: (a, b) => {
-                if (a.title.toLowerCase() < b.title.toLowerCase()) {
+                // debugger;
+                if (a.name.toLowerCase() < b.name.toLowerCase()) {
                     return -1;
                 }
-                if (a.title.toLowerCase() > b.title.toLowerCase()) {
+                if (a.name.toLowerCase() > b.name.toLowerCase()) {
                     return 1;
                 }
                 return 0;
             },
             rating: (a, b) => {
-                if (a.avgRating < b.avgRating) {
+                if (a.rating < b.rating) {
                     return -1;
                 }
-                if (a.avgRating > b.avgRating) {
-                    return 1;
-                }
-                return 0;
-            },
-            author: (a, b) => {
-                if (a.author.name < b.author.name) {
-                    return -1;
-                }
-                if (a.author.name > b.author.name) {
-                    return 1;
-                }
-                return 0;
-            },
-            mostread: (a, b) => {
-                if (a.read < b.read) {
-                    return -1;
-                }
-                if (a.read > b.read) {
+                if (a.rating > b.rating) {
                     return 1;
                 }
                 return 0;
@@ -136,7 +113,6 @@ class BookListing extends React.Component {
         this.search();
     }
     render() {
-        // debugger;
         const { showControls } = this.props;
         const { filters } = this.state;
         return (
@@ -151,26 +127,12 @@ class BookListing extends React.Component {
                             </div>
                             <select name="SortBy" onChange={this.updateFilter('sort')} >
                                 <option value="name">Sort by: Name</option>
-                                <option value="author">Sort by: Author</option>
                                 <option value="rating">Sort by: Rating</option>
-                                <option value="mostread">Sort by: Most read</option>
                             </select>
                         </Col>
                     </Row>}
                     <Row className="no-gutters">
                         {showControls && <Col md={3} className="bg-light p-5">
-                            <h3 className="font-weight-bold">Bookshelves</h3>
-                            <ul>
-                                <li className="d-flex u-link justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'all')} disabled={filters.bookshelf === 'all'}>All
-                                    <Badge pill variant="primary">50000</Badge>
-                                </li>
-                                <li className="d-flex u-link justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'read')} disabled={filters.bookshelf === 'read'}>Read
-                                    <Badge pill variant="primary">10</Badge>
-                                </li>
-                                <li className="d-flex u-link justify-content-between align-items-center" onClick={this.updateFilter('bookshelf', 'currentlyreading')} disabled={filters.bookshelf === 'currentlyreading'}>Currently reading
-                                    <Badge pill variant="primary">1</Badge>
-                                </li>
-                            </ul>
                             <h3 className="font-weight-bold">Category</h3>
                             <ul className="u-list-no-bullet">
                                 <li className="u-link" onClick={this.addFilter('category', 'Fiction')}>Fiction</li>
@@ -203,12 +165,7 @@ class BookListing extends React.Component {
                                 </li>
 
                             </ul>
-                            <h3 className="font-weight-bold">Language</h3>
-                            <ul className="u-list-no-bullet">
-                                <li className="u-link" onClick={this.addFilter('language', 'English')} >English</li>
-                                <li className="u-link" onClick={this.addFilter('language', 'Arabic')} >Arabic</li>
-                                <li className="u-link" onClick={this.addFilter('language', 'French')} >French</li>
-                            </ul>
+
                         </Col>
                         } <Col md={showControls ? 9 : 12}>
                             <div className="d-flex flex-row mt-4">
@@ -217,13 +174,6 @@ class BookListing extends React.Component {
                                         <Badge pill variant="info" key={el} className="d-flex align-items-center">
                                             {el}
                                             <FontAwesomeIcon icon={faTimesCircle} size="2x" className="ml-2" onClick={this.removeFilter('category', el)} />
-                                        </Badge>
-                                    )
-                                }{
-                                    filters.language.map((el) =>
-                                        <Badge pill variant="info" key={el} className="d-flex align-items-center">
-                                            {el}
-                                            <FontAwesomeIcon icon={faTimesCircle} size="2x" className="ml-2" onClick={this.removeFilter('language', el)} />
                                         </Badge>
                                     )
                                 }
@@ -240,27 +190,28 @@ class BookListing extends React.Component {
                             {
                                 this.props.userType === 'admin' &&
                                 <div className="d-flex justify-content-end pr-5">
-                                    <Button variant="primary" onClick={this.showAddBook}>
-                                        <FontAwesomeIcon icon={faBookMedical} size="3x" />
+                                    <Button variant="primary" onClick={this.showAddAuthor}>
+                                        <FontAwesomeIcon icon={faUserPlus} size="2x" />
                                     </Button>
-                                </div>}
-                            <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
+                                </div>
+
+                            }
+                            <Modal show={this.state.addAuthorView} onHide={this.closeAddAuthor}>
                                 <Modal.Header closeButton>
-                                    <Modal.Title>Add new Book</Modal.Title>
+                                    <Modal.Title>Add new Author</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
                                 <Modal.Footer>
-                                    <Button variant="secondary" onClick={this.closeAddBook}>
+                                    <Button variant="secondary" onClick={this.closeAddAuthor}>
                                         Close
                                   </Button>
-                                    <Button variant="primary" onClick={this.closeAddBook}>
+                                    <Button variant="primary" onClick={this.closeAddAuthor}>
                                         Save Changes
                                   </Button>
                                 </Modal.Footer>
                             </Modal>
-                            <Listing list={this.state.data} viewType='list' viewControls={true}>
-                                <BookDetailedCard />
-                                <CardBrief />
+                            <Listing list={this.state.data} viewType='grid' viewControls={false}>
+                                <AuthorCard />
                             </Listing>
                         </Col>
                     </Row>
@@ -272,4 +223,4 @@ class BookListing extends React.Component {
         )
     }
 }
-export default connect(function (state) { return { userType: state.user.type } })(BookListing);
+export default connect(function (state) { return { userType: state.user.type } })(AuthorListing);
