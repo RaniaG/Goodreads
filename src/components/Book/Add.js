@@ -30,25 +30,24 @@ class AddBook extends React.Component {
                 type: String,
                 optional: false,
                 min: 3,
-                max: 15,
+                max: 25,
             },
             category: {
                 type: String,
                 optional: false,
                 min: 3,
-                max: 15,
+                max: 25,
             },
             auther: {
                 type: String,
                 optional: false,
                 min: 3,
-                max: 15,
+                max: 25,
             },
             image: {
                 type: String,
                 optional: false,
                 min: 3,
-                max: 15,
             }
         }).newContext();
         this.handleChange = this.handleChange.bind(this);
