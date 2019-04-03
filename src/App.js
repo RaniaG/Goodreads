@@ -78,9 +78,9 @@ class App extends Component {
 
         {/* <AuthorDetails data = {this.state.data}/>  */}
         {/* <Login /> */}
-        <FormExample />
+        {/* <FormExample /> */}
         {/* <SignUp /> */}
-        {/* <AddBook /> */}
+        <AddBook />
         {/* <Rating /> */}
         {/* <Container> 
           <Row>
