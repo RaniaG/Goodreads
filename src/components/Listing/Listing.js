@@ -47,10 +47,10 @@ export default class Listing extends React.Component {
         const { view } = this.state;
         let listItemsWithProps = [];
         const element = Array.isArray(this.props.children) ? this.props.children[this.state.view === 'list' ? 0 : 1] : this.props.children;
-        listItemsWithProps = list.map((elm) => <Col md={view === 'list' ? 12 : 3} key={elm.id} className="mt-3">{React.cloneElement(element, { ...elm })}</Col>);
+        listItemsWithProps = list.map((elm) => <Col md={view === 'list' ? 12 : 3} key={elm.id} className="mt-3">{React.cloneElement(element, elm)}</Col>);
 
+        // debugger;
         return (
-
             <div className="ml-5 mr-5 mt-2" >
                 {viewControls && <Row>
                     <Col md={12} className="d-flex justify-content-end">
@@ -58,6 +58,7 @@ export default class Listing extends React.Component {
                         <Button variant="light" active={this.state.view === 'grid'} onClick={this.changeView('grid')}><FontAwesomeIcon icon={faTh} size="2x" /></Button>
                     </Col>
                 </Row>}
+
                 <Row >
                     {
                         listItemsWithProps
@@ -74,6 +75,7 @@ export default class Listing extends React.Component {
                         </Pagination>
                     </Col>
                 </Row>
+
             </div >
 
         );

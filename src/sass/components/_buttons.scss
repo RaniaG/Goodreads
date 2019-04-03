@@ -1,0 +1,19 @@
+.button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.5rem;
+    border-radius: 10%;
+    border:none;
+    &--1{
+        background-color: $color-blue;
+        color:white;
+    }
+    &--2{
+        background-color: $color-rose;
+        color:white;
+    }
+    &:hover{
+        cursor: pointer;
+    }
+}

@@ -3,7 +3,7 @@
 import React from 'react';
 // import{NavLink} from 'react-router-dom';
 
-import '../../sass/components/_book.scss'
+
 import {Container , Row , Col , Card , DropdownButton ,Dropdown} from 'react-bootstrap'
 import NavLink from 'react-bootstrap/NavLink';
 
