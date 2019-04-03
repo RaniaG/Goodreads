@@ -1,4 +1,5 @@
 import React from 'react';
+import Rater from 'react-rater'
 import { Dropdown, Card, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
 
 export default class BookDetailedCard extends React.Component {
@@ -13,7 +14,7 @@ export default class BookDetailedCard extends React.Component {
     handleClick(e) {
         const value = e.target.value;
         this.setState({
-            shelf: value,
+            shelf: value, 
         })
         if (value === 'Read') {
             this.setState({
@@ -22,24 +23,24 @@ export default class BookDetailedCard extends React.Component {
         }
     }
     render() {
-        const {title, author, avgRating, cover} = this.props
+        const { title, author, avgRating, cover } = this.props
         return (
-            <Card style={{ width: '70rem' }} className="book-card book-card-detailed ">
+            <Card className="book-card book-card-detailed ">
                 <Row className="no-gutters">
-                    <Col className="col-md-2">
+                    <Col md={2}>
                         <img src={cover} className="book-card-img" alt={title} />
                     </Col>
-                    <Col className="col-md-7">
+                    <Col md={7}>
                         <Card.Body>
                             <h3 className="book-card-title book-card-title-detailed">{title}</h3>
-                            <h5 className="book-card-author">by {author}</h5>
+                            <h5 className="book-card-author">by {author.name}</h5>
                             <div>
-                                <span><img src="https://66.media.tumblr.com/91e90ae7c571e31c23b41d6b828df97d/tumblr_pp16ebAJmp1tfnoauo1_100.png" alt="rating" /></span>
+                                <span><Rater rating={avgRating} total={5} interactive={false} /></span>
                                 <span className="card-text"><small className="text-muted book-grey-text"> {avgRating} avg. rating</small></span>
                             </div>
                         </Card.Body>
                     </Col>
-                    <Col className="col-md-3 shelfDropdown-container">
+                    <Col md={3} className="shelfDropdown-container">
                         <Dropdown as={ButtonGroup} size="lg" >
                             <Button className="shelfDropdown-btn">{this.state.shelf}</Button>
                             <Dropdown.Toggle split id="dropdown-split-basic" className="shelfDropdown-btn" />

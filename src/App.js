@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.scss';
+
 // import {BrowserRouter , Route , Switch} from 'react-router-dom';
 
 // import { library } from '@fortawesome/fontawesome-svg-core'
@@ -26,52 +27,26 @@ import Login from './components/Login/Login-nw';
 // import AuthorCard from './components/Author/Card';
 import BookDetails from './components/Book/Details';
 import { Col } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import HomeComponent from './components/Home/Home';
 import CategoriesList from './components/Categories/Listing';
 import BookListing from './components/Book/Listing';
-import SignUp from './components/Signup/Signup';
-
-
-// Aliaa imports
-// import BooksList from './components/Book/List';
-// >>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
+import AuthorListing from './components/Author/Listing';
+import UserNavbar from './components/NavBar/user';
+import AdminNavbar from './components/NavBar/admin';
+import SearchResults from './components/SearchResults/SearchResults';
+import AuthorDetails from './components/Author/Details';
+import BookDetails from './components/Book/Details';
+import Login from './components/Login/Login';
+import { connect } from 'react-redux';
+import CategoriesAdminListing from './components/Categories/AdminListing';
+import UserProfile from './components/UserProfile/User-Profile';
+//Components
 
 class App extends Component {
-  state =
-    {
-      data: [
-        {
-          id: 1,
-          image: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-          name: 'Ahmed Ibrahem'
-        },
-        {
-          id: 2,
-          image: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-          name: 'Aly Mohamed'
-        },
-        {
-          id: 3,
-          image: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-          name: 'Mohamed Alaa'
-        },
-        {
-          id: 4,
-          image: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-          name: 'Ibrahem Elsayed'
-        },
-        {
-          id: 5,
-          image: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-          name: 'Tarek Elsayed'
-        },
-        {
-          id: 6,
-          image: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80',
-          name: 'Khalid Yosrey'
-        },
-      ]
-    }
+
   render() {
+    const { user } = this.props;
     return (
       <div className="App">
 
@@ -95,11 +70,51 @@ class App extends Component {
         </Row>
         </Container> */}
 
+        <Router>
+          <>
+
+            {user.type === 'user' ?
+              <UserNavbar /> :
+              <AdminNavbar />
+            }
+            <div className="content">
+              <Switch >
+                <Route path="/" exact component={HomeComponent} />
+                <Route path="/home" exact component={HomeComponent} />
+                <Route path="/search" exact component={SearchResults} />
+                <Route path="/search/:value" exact component={SearchResults} />
+                <Route path="/search/category/:category" exact component={SearchResults} />
+                <Route path="/categories" exact component={CategoriesList} />
+                <Route path="/profile" exact component={UserProfile} />
+                {/* <Route path="/post/:id" exact component={PostDetails} /> */}
+                <Route path="/authors" exact render={(routeProps) => (
+                  <AuthorListing {...routeProps} showControls={false} />
+                )} />
+                <Route path="/books" exact render={(routeProps) => (
+                  <BookListing {...routeProps} showControls={false} />
+                )} />
+                <Route path="/author/:id" exact component={AuthorDetails} />
+                <Route path="/book/:id" exact component={BookDetails} />
+                <Route path="/login" exact component={Login} />
+                {/* <Route exact path="/author/add" component={AddAuthor} ></Route> */}
+                {/* <Route exact path="/author/edit" component={AddAuthor} ></Route> */}
+                <Route exact path="/author/:id" component={AuthorDetails} ></Route>
+
+                {/* admin routes */}
+                <Route path="/admin/categories" exact component={CategoriesAdminListing} />
+                <Route path="/admin/books" exact render={
+                  (props) => <BookListing showControls={true} />
+                } />
+                <Route path="/admin/authors" exact render={
+                  (props) => <AuthorListing showControls={true} />
+                } />
+              </Switch>
+            </div>
 
 
     {/* Aliaa */ }
     {/* <BooksList /> */ }
-    // </div>
+    {/* //</div> */}
 
     // );
     //   <BookDetails />
@@ -116,9 +131,17 @@ class App extends Component {
     //   </Row>
     //   <BookListing showControls={true}></BookListing>
     //   <CategoriesList />
-    // </div >
+    {/* // </div > */}
     // >>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
+
+          </>
+        </Router>
+      // </div>
+    // )
+
   }
 }
+const mapStateToProps = (state) => ({ user: state.user });
 
-export default App;
+export default connect(mapStateToProps)(App);
+

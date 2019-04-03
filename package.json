@@ -15,8 +15,16 @@
     "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.5",
     "react-fontawesome": "^1.6.1",
+<<<<<<< HEAD
     "react-form-simple-schema": "0.0.3",
+=======
+    "react-rater": "^5.0.5",
+    "react-redux": "^6.0.1",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+>>>>>>> 700a1bc11104fd167f77b40a491b0a4fecf8b7c3
     "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
     "simpl-schema": "^1.5.5"
   },
   "scripts": {
@@ -33,5 +41,18 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaniaG/Goodreads.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RaniaG/Goodreads/issues"
+  },
+  "homepage": "https://github.com/RaniaG/Goodreads#readme"
 }
