@@ -5,26 +5,28 @@ import './App.scss';
 // import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faIgloo } from '@fortawesome/free-solid-svg-icons'
-<<<<<<< HEAD
+
 
 //Components
 import AuthorDetails from './components/Author/Details';
 import AuthorCard from './components/Author/Card';
-import {Container , Row } from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import Login from './components/Login/Login';
 import AddBook from './components/Add-Book/Add-Book';
 import Rating from './components/Rating/Rating';
+import FormExample from './components/Login/Login-nw';
+
 
 // library.add(faIgloo)
-=======
+
 // import AuthorDetails from './components/Author/Details';
 // import AuthorCard from './components/Author/Card';
 // import { Container, Row } from 'react-bootstrap';
 // library.add(faIgloo)
-import AuthorDetails from './components/Author/Details';
-import AuthorCard from './components/Author/Card';
+// import AuthorDetails from './components/Author/Details';
+// import AuthorCard from './components/Author/Card';
 import BookDetails from './components/Book/Details';
-import { Container, Row, Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 import CategoriesList from './components/Categories/Listing';
 import BookListing from './components/Book/Listing';
 import SignUp from './components/Signup/Signup';
@@ -32,7 +34,7 @@ import SignUp from './components/Signup/Signup';
 
 // Aliaa imports
 // import BooksList from './components/Book/List';
->>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
+// >>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
 
 class App extends Component {
   state =
@@ -73,20 +75,22 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-<<<<<<< HEAD
+
         {/* <AuthorDetails data = {this.state.data}/>  */}
         {/* <Login /> */}
+        <FormExample />
+        {/* <SignUp /> */}
         {/* <AddBook /> */}
         {/* <Rating /> */}
-         {/* <Container> 
+        {/* <Container> 
           <Row>
              {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)} 
           </Row> 
         </Container> */}
-       </div>
-     )
-=======
-        {/* <AuthorDetails data = {this.state.data}/>
+      </div>
+    )
+
+    {/* <AuthorDetails data = {this.state.data}/>
         <Container>
         <Row>
         {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)}
@@ -95,27 +99,27 @@ class App extends Component {
 
 
 
-        {/* Aliaa */}
-        {/* <BooksList /> */}
-      </div>
+    {/* Aliaa */ }
+    {/* <BooksList /> */ }
+    // </div>
 
-    );
-      //   <BookDetails />
-      //   {/* <AuthorDetails data = {this.state.data}/> */}
-      //   {/* <Container>
-      //     <Row>
-      //       {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)}
-      //     </Row>
-      //   </Container> */}
-      //   <Row className="no-gutters">
-      //     <Col md={3}>
-      //       <SignUp />
-      //     </Col>
-      //   </Row>
-      //   <BookListing showControls={true}></BookListing>
-      //   <CategoriesList />
-      // </div >
->>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
+    // );
+    //   <BookDetails />
+    //   {/* <AuthorDetails data = {this.state.data}/> */}
+    //   {/* <Container>
+    //     <Row>
+    //       {this.state.data.map( m => <AuthorCard key = {m.id} author = {m}/>)}
+    //     </Row>
+    //   </Container> */}
+    //   <Row className="no-gutters">
+    //     <Col md={3}>
+    //       <SignUp />
+    //     </Col>
+    //   </Row>
+    //   <BookListing showControls={true}></BookListing>
+    //   <CategoriesList />
+    // </div >
+    // >>>>>>> 6b3e1e8ebc070de37840b577ce62fa3aaa754f2c
   }
 }
 
