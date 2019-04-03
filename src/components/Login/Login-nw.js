@@ -6,7 +6,7 @@ import { error } from 'util';
 
 import '../../sass/components/_login.scss';
 
-class FormExample extends React.Component {
+class Login extends React.Component {
 
     constructor(args) {
         super(args);
@@ -50,14 +50,25 @@ class FormExample extends React.Component {
         validationContext.validate({ userName, password });
 
         if (!(validationContext.isValid())) {
-            event.stopPropagation();
-            validationContext.validationErrors().forEach(el => {
-                this.setState({ [userName]: true, [password]: true });
-            })
+            // event.stopPropagation();
+            // validationContext.validationErrors().forEach(el => {
+            //     this.setState({ [userName]: true, [password]: true });
+            // })
+            let errorsArr = {
+                userName: false,
+                password: false,
+            };
+            validationContext.validationErrors().forEach((a) => {
+                errorsArr[a.name] = true;
+                console.log(a.name);
+            });
+
+            this.setState({
+                error: { ...this.state.error, ...errorsArr },
+            });
             console.log('in if');
         } else {
-            this.setState({ [userName]: false, [password]: false });
-            // this.setState({ validated: true });
+
         }
         this.setState({ validated: true });
         console.log(validationContext.isValid());
@@ -102,4 +113,4 @@ class FormExample extends React.Component {
     }
 }
 
-export default FormExample;
+export default Login;

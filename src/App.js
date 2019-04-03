@@ -11,10 +11,9 @@ import './App.scss';
 import AuthorDetails from './components/Author/Details';
 import AuthorCard from './components/Author/Card';
 import { Container, Row } from 'react-bootstrap'
-import Login from './components/Login/Login';
-import AddBook from './components/Add-Book/Add-Book';
+import AddBook from './components/Book/Add';
 import Rating from './components/Rating/Rating';
-import FormExample from './components/Login/Login-nw';
+import Login from './components/Login/Login-nw';
 
 
 // library.add(faIgloo)
@@ -77,10 +76,9 @@ class App extends Component {
       <div className="App">
 
         {/* <AuthorDetails data = {this.state.data}/>  */}
-        {/* <Login /> */}
-        {/* <FormExample /> */}
+        <Login />
         {/* <SignUp /> */}
-        <AddBook />
+        {/* <AddBook /> */}
         {/* <Rating /> */}
         {/* <Container> 
           <Row>
