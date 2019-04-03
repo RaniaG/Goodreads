@@ -13,6 +13,7 @@ import BookDetails from './components/Book/Details';
 import Login from './components/Login/Login';
 import { connect } from 'react-redux';
 import CategoriesAdminListing from './components/Categories/AdminListing';
+import UserProfile from './components/UserProfile/User-Profile';
 //Components
 
 
@@ -37,6 +38,7 @@ class App extends Component {
                 <Route path="/search/:value" exact component={SearchResults} />
                 <Route path="/search/category/:category" exact component={SearchResults} />
                 <Route path="/categories" exact component={CategoriesList} />
+                <Route path="/profile" exact component={UserProfile} />
                 {/* <Route path="/post/:id" exact component={PostDetails} /> */}
                 <Route path="/authors" exact render={(routeProps) => (
                   <AuthorListing {...routeProps} showControls={false} />
@@ -51,24 +53,14 @@ class App extends Component {
                 {/* <Route exact path="/author/edit" component={AddAuthor} ></Route> */}
                 <Route exact path="/author/:id" component={AuthorDetails} ></Route>
 
-
                 {/* admin routes */}
-                {/* <Route path="/admin/categories" exact component={} /> */}
+                <Route path="/admin/categories" exact component={CategoriesAdminListing} />
                 <Route path="/admin/books" exact render={
-                  (props) => <BookListing showControls={true} showSearchbox={true} {...props} />
+                  (props) => <BookListing showControls={true} />
                 } />
                 <Route path="/admin/authors" exact render={
-                  (props) => <AuthorListing showControls={true} showSearchbox={true}{...props} />
+                  (props) => <AuthorListing showControls={true} />
                 } />
-
-              {/* admin routes */}
-              <Route path="/admin/categories" exact component={CategoriesAdminListing} />
-              <Route path="/admin/books" exact render={
-                (props) => <BookListing showControls={true} />
-              } />
-              <Route path="/admin/authors" exact render={
-                (props) => <AuthorListing showControls={true} />
-              } />
               </Switch>
             </div>
 
