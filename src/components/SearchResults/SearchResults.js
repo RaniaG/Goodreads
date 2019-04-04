@@ -12,7 +12,7 @@ const SearchResults = (props) => {
 
         <Row className="justify-content-center pt-4">
             <Col md={11} >
-                <TabsComponent style="secondary" position="start" >
+                <TabsComponent view="secondary" position="start" >
                     <TabItemComponent header="Books" >
                         <BookListing showControls={true} searchValue={value || ""} categories={category && [category]} showSearchbox={false} />
 

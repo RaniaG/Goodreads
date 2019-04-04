@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Tabs, Tab } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import SignUp from '../Signup/Signup';
 import books from '../../data/books';
 import authors from '../../data/authors';
@@ -53,7 +53,7 @@ class HomeComponent extends React.Component {
                 <Row className="no-gutters section section--bg  justify-content-center">
                     <Col md={12}>
                         <div className="heading heading--1">Popular Authors</div>
-                        <CardSlider list={[...this.state.popularAuthors, ...this.state.popularAuthors]} >
+                        <CardSlider list={this.state.popularAuthors} >
                             <AuthorCard />
                         </CardSlider>
                         {/* <Listing list={this.state.popularAuthors} viewType='grid' viewControls={false}>
