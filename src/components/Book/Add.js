@@ -3,9 +3,10 @@ import SimpleSchema from 'simpl-schema';
 //bootstrap component
 import { Form, Row, Col, Button } from 'react-bootstrap';
 //sass file
-import '../../sass/components/_add-book.scss';
-import cardDetailed from '../Author/Add';
-import cardBrief from '../Login/Login';
+// import '../../sass/components/_add-book.scss';
+// import cardDetailed from '../Author/Add';
+// import cardBrief from '../Login/Login';
+import books from '../../data/books';
 
 class AddBook extends React.Component {
 
@@ -96,80 +97,77 @@ class AddBook extends React.Component {
 
     componentDidMount() {
         const { edit, id } = this.props;
-        if (edit && cardDetailed) {
+        if (edit) {
             this.setState({
-                bookName: cardDetailed[id - 1].bookName,
-                category: cardDetailed[id - 1].category,
-                auther: cardDetailed[id - 1].auther,
-                image: cardDetailed[id - 1].image,
-            })
-        } else if (edit && cardBrief) {
-            this.setState({
-                bookName: cardBrief[id - 1].bookName,
-                category: cardBrief[id - 1].category,
-                auther: cardBrief[id - 1].auther,
-                image: cardBrief[id - 1].image,
+                bookName: books[id - 1].title,
+                category: books[id - 1].category,
+                auther: books[id - 1].author.name,
+                image: books[id - 1].cover,
             })
         }
+        // else if (edit && cardBrief) {
+        //     this.setState({
+        //         bookName: cardBrief[id - 1].bookName,
+        //         category: cardBrief[id - 1].category,
+        //         auther: cardBrief[id - 1].auther,
+        //         image: cardBrief[id - 1].image,
+        //     })
+        // }
 
     }
 
     render() {
         const { bookName, category, auther, image, error } = this.state;
         return (
-            <Form className="addBook" onSubmit={this.handleSubmit}>
-                <div className="addBook-form">
-                    <Form.Group as={Row} controlId="formHorizontalEmail">
-                        <Form.Label column sm={2} className='addBook-labels'>
-                            BookName
+            <Row className="justify-content-center pt-5 pb-5">
+                <Col md={10}>
+                    <Form className="addBook" onSubmit={this.handleSubmit}>
+                        <div className="addBook-form">
+                            <Form.Group as={Row} controlId="formHorizontalEmail">
+                                <Form.Label column sm={2} className='addBook-labels'>
+                                    BookName
                     </Form.Label>
-                        <Col sm={10}>
-<<<<<<< Updated upstream
-                            <Form.Control type="text" name="bookName" placeholder="" className={'addBook-inputs ' + (error.bookName && "is-invalid")} onChange={this.handleChange} value={bookName} />
-=======
-                            <Form.Control type="text" name="bookName" placeholder="" className="addBook-inputs" className={error.bookName && "is-invalid"} onChange={this.handleChange} value={bookName} />
->>>>>>> Stashed changes
-                        </Col>
-                    </Form.Group>
+                                <Col sm={10}>
+                                    <Form.Control type="text" name="bookName" placeholder="" className={'addBook-inputs ' + (error.bookName && "is-invalid")} onChange={this.handleChange} value={bookName} />
+                                </Col>
+                            </Form.Group>
 
-                    <Form.Group as={Row} controlId="formHorizontalPassword">
-                        <Form.Label column sm={2} className='addBook-labels'>
-                            Category
+                            <Form.Group as={Row} controlId="formHorizontalPassword">
+                                <Form.Label column sm={2} className='addBook-labels'>
+                                    Category
                     </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control type="text" name="category" placeholder="" className={error.category && "is-invalid"} onChange={this.handleChange} value={category} />
-                        </Col>
-                    </Form.Group>
+                                <Col sm={10}>
+                                    <Form.Control type="text" name="category" placeholder="" className={error.category && "is-invalid"} onChange={this.handleChange} value={category} />
+                                </Col>
+                            </Form.Group>
 
-                    <Form.Group as={Row} controlId="formHorizontalPassword">
-                        <Form.Label column sm={2} className='addBook-labels'>
-                            Auther
+                            <Form.Group as={Row} controlId="formHorizontalPassword">
+                                <Form.Label column sm={2} className='addBook-labels'>
+                                    Auther
                     </Form.Label>
-                        <Col sm={10}>
-                            <Form.Control type="text" name="auther" placeholder="" className={error.auther && "is-invalid"} onChange={this.handleChange} value={auther} />
-                        </Col>
-                    </Form.Group>
+                                <Col sm={10}>
+                                    <Form.Control type="text" name="auther" placeholder="" className={error.auther && "is-invalid"} onChange={this.handleChange} value={auther} />
+                                </Col>
+                            </Form.Group>
 
-                    <Form.Group as={Row} controlId="formHorizontalPassword">
-                        <Form.Label column sm={2} className='addBook-labels'>
-                            Image
+                            <Form.Group as={Row} controlId="formHorizontalPassword">
+                                <Form.Label column sm={2} className='addBook-labels'>
+                                    Image
                     </Form.Label>
-                        <Col sm={10}>
-<<<<<<< Updated upstream
-                            <Form.Control type="text" name="image" placeholder="" className={'addBook-inputs' + (error.image && "is-invalid")} onChange={this.handleChange} value={image} />
-=======
-                            <Form.Control type="text" name="image" placeholder="" className="addBook-inputs" className={error.image && "is-invalid"} onChange={this.handleChange} value={image} />
->>>>>>> Stashed changes
-                        </Col>
-                    </Form.Group>
+                                <Col sm={10}>
+                                    <Form.Control type="text" name="image" placeholder="" className={'addBook-inputs' + (error.image && "is-invalid")} onChange={this.handleChange} value={image} />
+                                </Col>
+                            </Form.Group>
 
-                    <Form.Group as={Row}>
-                        <Col sm={{ span: 10, offset: 2 }}>
-                            <Button type="submit" className="addBook-btn">Add Book</Button>
-                        </Col>
-                    </Form.Group>
-                </div>
-            </Form>
+                            <Form.Group as={Row}>
+                                <Col sm={{ span: 10, offset: 2 }}>
+                                    <Button type="submit" className="addBook-btn">Add Book</Button>
+                                </Col>
+                            </Form.Group>
+                        </div>
+                    </Form>
+                </Col>
+            </Row >
         )
     }
 }

@@ -136,6 +136,9 @@ class BookListing extends React.Component {
     componentDidMount() {
         this.search();
     }
+    componentWillReceiveProps(nextProps) {
+        this.search({ ...this.state.filters, search: nextProps.searchValue });
+    }
     render() {
         // debugger;
         const { showControls, showSearchbox } = this.props;
@@ -247,11 +250,9 @@ class BookListing extends React.Component {
                                         </button>
                                     </div>
                                     <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
-                                        <Row className="justify-content-center pt-5 pb-5">
-                                            <Col md={10}>
-                                                <AddBook />
-                                            </Col>
-                                        </Row>
+
+                                        <AddBook />
+
                                     </Modal>
                                 </>
                             }

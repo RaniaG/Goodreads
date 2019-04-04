@@ -21,7 +21,6 @@ export default class TabsComponent extends React.Component {
         const { children, position, view } = this.props;
         const { headers, activeIndex } = this.state;
         return (
-
             <div className="Tabs">
                 <div className={`Tabs__headers Tabs__headers--${view || 'primary'} ${position || 'center'}`}>
                     {headers.map((el, index) => <div className={index === this.state.activeIndex ? 'active' : ''} onClick={this.changeIndex(index)} key={el}>{el}</div>)}

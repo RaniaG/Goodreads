@@ -1,18 +1,15 @@
 .book {
   &-card {
-    font-family: "Montserrat", sans-serif;
-    color: #4b3b42;
-    background-color: #eeeed6;
+    font-family: $font-2, sans-serif;
+    color: $color-brown;
+    background-color: $color-beige;
     &-detailed {
       margin: 1rem auto;
       border-width: 1px 0px;
     }
     &-brief {
-      margin: 1rem 2rem;
-    }
-    &-img {
-      width: 100%;
-      padding: 1rem;
+      margin: 1rem .5rem;
+      padding: .5rem;
     }
     &-title {
       font-size: 3rem;
@@ -21,7 +18,7 @@
       }
       &-brief {
         font-size: 2rem;
-        font-weight: 600;
+        font-weight: 500;
       }
     }
     &-author {
@@ -46,45 +43,14 @@
   }
   &-btn {
     outline: none;
-    background-color: #98aeb6;
-    border-color: #98aeb6;
+    background-color: $color-blue;
+    border-color: $color-blue;
     &:hover,
     &:focus,
     &:active {
       outline: none !important;
-      background-color: #6d8c97 !important;
-      border-color: #6d8c97 !important;
-      box-shadow: none !important;
-    }
-  }
-  &-menu {
-    left: -12rem !important;
-    font-size: 1.5rem;
-  }
-}
-
-.myAlign-center {
-  text-align: center;
-  padding: 0.3rem 1rem 0rem 0rem;
-}
-
-.shelfDropdown {
-  &-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0rem 2rem 0rem 0rem !important;
-  }
-  &-btn {
-    outline: none;
-    background-color: #98aeb6;
-    border-color: #98aeb6;
-    &:hover,
-    &:focus,
-    &:active {
-      outline: none !important;
-      background-color: #6d8c97 !important;
-      border-color: #6d8c97 !important;
+      background-color: $color-grey !important;
+      border-color: $color-grey !important;
       box-shadow: none !important;
     }
   }

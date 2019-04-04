@@ -55,7 +55,7 @@ class AuthorListing extends React.Component {
     }
     addFilter(filter, value) {
         return (event) => {
-            debugger;
+            // debugger;
             const { filters } = this.state;
             if (!filters[filter].includes(value)) {
                 this.setState({ filters: { ...filters, [filter]: [...filters[filter], value] } });
@@ -113,8 +113,11 @@ class AuthorListing extends React.Component {
     componentDidMount() {
         this.search();
     }
+    componentWillReceiveProps(nextProps) {
+        this.search({ ...this.state.filters, search: nextProps.searchValue });
+    }
     render() {
-        debugger;
+        // debugger;
         const { showControls, showSearchbox } = this.props;
         const { filters } = this.state;
         return (

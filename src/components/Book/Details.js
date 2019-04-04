@@ -44,11 +44,7 @@ class BookDetails extends React.Component {
                                     <Card.Text><h1> <Rater rating={4} total={5} interactive={false} /></h1></Card.Text>
 
                                     <Card.Text >
-                                        أستاذة جامعية في تقنية المعلومات بجامعة الملك سعود بالرياض
-                                        متحصلة على شهادة في الهندسة الصناعية و الماجستير من مدرسة "المناجم" في مدينة سانت إتيان الفرنسية سنة 2008
-                                        متحصلة على الدكتوراه في بحوث العمليات (أحد فروع الرياضيات التطبيقية) من جامعة التكنولوجيا بمدينة تروا بفرنسا سنة 2011
-                                        روايتها الأولى الصادرة سنة 2012 تحمل عنوان "في قلبي أنثى عبرية" و هي مستوحاة من قصة حقيقية ليهودية تونسية
-                                        دخلت الإسلام بعد تأثرها ب`شخصية طفلة مسلمة يتيمة الأبوين صمدت في وجه الحياة بشجاعة، و بشخصية شاب لبناني مقاوم ترك بصمة في حياتها
+                                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus rem laudantium enim ab, beatae nulla quod et, qui aliquam natus ullam molestias saepe! Accusantium explicabo aut optio dolorum nostrum esse!
                                 </Card.Text>
                                 </Card.Body>
                             </Card>

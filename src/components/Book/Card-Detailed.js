@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import AddBook from './Add';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+
 
 class BookDetailedCard extends React.Component {
     constructor(bookProps) {
@@ -65,12 +67,12 @@ class BookDetailedCard extends React.Component {
                     }
                     <Row className="no-gutters">
                         <Col md={2} className="p-3">
-                            <Image src={cover} alt={title} rounded fluid  />
+                            <Image src={cover} alt={title} rounded fluid />
                         </Col>
                         <Col md={7}>
                             <Card.Body>
-                                <h3 className="book-card-title book-card-title-detailed">{title}</h3>
-                                <h5 className="book-card-author">by {author.name}</h5>
+                                <h3 className="book-card-title book-card-title-detailed"> <Link to={`/book/${id}`}>{title}</Link></h3>
+                                <h5 className="book-card-author">by <Link to={`/author/${author.id}`} >{author.name}</Link></h5>
                                 <div>
                                     <span className="rater-lg"><Rater rating={avgRating} total={5} interactive={false} /></span>
                                     <span className="card-text"><small className="text-muted book-grey-text"> {avgRating} avg. rating</small></span>
@@ -89,9 +91,9 @@ class BookDetailedCard extends React.Component {
                             </Dropdown>
                             <div className="myAlign-center">
                                 <small className="text-muted grey-text">{this.state.bookRate} </small>
-                                <p className="rater-md">
+                                <div className="rater-md">
                                     <Rater total={5} interactive={true} />
-                                </p>
+                                </div>
                             </div>
                         </Col>
                     </Row>

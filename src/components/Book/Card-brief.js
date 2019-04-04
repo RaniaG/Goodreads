@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import AddBook from './Add';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 class CardBrief extends React.Component {
     constructor(props) {
@@ -49,8 +50,8 @@ class CardBrief extends React.Component {
                     }
                     <Card.Img variant="top" src={cover} alt={title} style={{ height: '22rem' }} />
                     <Card.Body>
-                        <Card.Title className="book-card-title-brief">{title}</Card.Title>
-                        <Card.Text>by {author.name}</Card.Text>
+                        <Card.Title className="book-card-title-brief"><Link to={`/book/${id}`}>{title}</Link></Card.Title>
+                        <Card.Text>by <Link to={`/author/${author.id}`} >{author.name}</Link> </Card.Text>
                     </Card.Body>
                 </Card>
                 <Modal show={this.state.editShow} onHide={this.handleEditClose}>
