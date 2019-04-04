@@ -47,7 +47,7 @@ class CardBrief extends React.Component {
                             <Button onClick={this.handleEditShow} className="font-awesome-btn" ><FontAwesomeIcon icon={faEdit} size="lg" /></Button>
                             <Button onClick={this.handleDeleteShow} className="font-awesome-btn" ><FontAwesomeIcon icon={faTrash} size="lg" /></Button>
                         </Card.Text>
-                    }
+                    }  
                     <Card.Img variant="top" src={cover} alt={title} style={{ height: '22rem' }} />
                     <Card.Body>
                         <Card.Title className="book-card-title-brief"><Link to={`/book/${id}`}>{title}</Link></Card.Title>
