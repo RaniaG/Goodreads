@@ -1,6 +1,7 @@
 import React from 'react';
-import Rater from 'react-rater'
+import Rater from 'react-rater';
 import { Dropdown, Card, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default class BookDetailedCard extends React.Component {
     constructor(bookProps) {
@@ -14,7 +15,7 @@ export default class BookDetailedCard extends React.Component {
     handleClick(e) {
         const value = e.target.value;
         this.setState({
-            shelf: value, 
+            shelf: value,
         })
         if (value === 'Read') {
             this.setState({
@@ -23,7 +24,7 @@ export default class BookDetailedCard extends React.Component {
         }
     }
     render() {
-        const { title, author, avgRating, cover } = this.props
+        const { title, author, avgRating, cover, id } = this.props
         return (
             <Card className="book-card book-card-detailed ">
                 <Row className="no-gutters">
@@ -32,8 +33,10 @@ export default class BookDetailedCard extends React.Component {
                     </Col>
                     <Col md={7}>
                         <Card.Body>
-                            <h3 className="book-card-title book-card-title-detailed">{title}</h3>
-                            <h5 className="book-card-author">by {author.name}</h5>
+                            <Link to={`/book/${id}`}>
+                                <h3 className="book-card-title book-card-title-detailed">{title}</h3>
+                            </Link>
+                            <h5 className="book-card-author">by <Link to={`/author/${author.id}`} >{author.name}</Link> </h5>
                             <div>
                                 <span><Rater rating={avgRating} total={5} interactive={false} /></span>
                                 <span className="card-text"><small className="text-muted book-grey-text"> {avgRating} avg. rating</small></span>

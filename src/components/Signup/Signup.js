@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Form, Button, Overlay, Tooltip } from 'react-bootstrap';
+import { Form, Overlay, Tooltip } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
 
 export default class SignUp extends React.Component {
@@ -40,7 +40,7 @@ export default class SignUp extends React.Component {
             },
             password: {
                 type: String,
-                regEx: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/,
+                regEx: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
                 min: 5,
                 max: 150,
                 optional: false

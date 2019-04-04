@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Form, Badge, Button, Modal } from 'react-bootstrap';
+import { Row, Col, Form, Badge, Modal } from 'react-bootstrap';
 import Listing from '../Listing/Listing';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimesCircle, faBookMedical } from '@fortawesome/free-solid-svg-icons'
@@ -7,6 +7,7 @@ import CardBrief from './Card-brief';
 import BookDetailedCard from './Card-Detailed';
 import books from '../../data/books';
 import Rater from 'react-rater'
+import AddBook from './Add';
 import 'react-rater/lib/react-rater.scss'
 import { connect } from 'react-redux';
 
@@ -246,18 +247,11 @@ class BookListing extends React.Component {
                                         </button>
                                     </div>
                                     <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
-                                        <Modal.Header closeButton>
-                                            <Modal.Title>Add new Book</Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-                                        <Modal.Footer>
-                                            <Button variant="secondary" onClick={this.closeAddBook}>
-                                                Close
-                                  </Button>
-                                            <Button variant="primary" onClick={this.closeAddBook}>
-                                                Save Changes
-                                  </Button>
-                                        </Modal.Footer>
+                                        <Row className="justify-content-center pt-5 pb-5">
+                                            <Col md={10}>
+                                                <AddBook />
+                                            </Col>
+                                        </Row>
                                     </Modal>
                                 </>
                             }

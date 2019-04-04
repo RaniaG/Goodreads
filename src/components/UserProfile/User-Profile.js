@@ -24,7 +24,7 @@ class UserProfile extends React.Component {
                     </Row>
                     <Row>
                         <Col>
-                            <BookListing showControls={true} />
+                            <BookListing showControls={true} showSearchbox={true} />
                         </Col>
                     </Row>
                 </Col>
