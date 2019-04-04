@@ -48,13 +48,13 @@ export default class CategoryCard extends React.Component {
                     </Card.Body>
                 </Card>
                 <Modal show={this.state.editShow} onHide={this.handleEditClose}>
-                    <AddCategory edit={true} id={id} />
+                    <AddCategory edit={true} id={id} handleClose={this.handleEditClose} />
                 </Modal>
                 <Modal show={this.state.deleteShow} onHide={this.handleDeleteClose}>
                     <Modal.Body>Are you sure you want to delete?</Modal.Body>
                     <Modal.Footer>
-                        <Button size="lg" variant="primary" onClick={this.handleDeleteClose}>Delete</Button>
-                        <Button size="lg" variant="secondary" onClick={this.handleDeleteClose}>Cancel</Button>
+                        <Button size="lg" className="button--1" onClick={this.handleDeleteClose}>Delete</Button>
+                        <Button size="lg" className="button--2" onClick={this.handleDeleteClose}>Cancel</Button>
                     </Modal.Footer>
                 </Modal>
             </>

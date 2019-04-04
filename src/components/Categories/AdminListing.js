@@ -39,7 +39,7 @@ export default class CategoriesAdminListing extends React.Component {
                     </Col>
                 </Row>
                 <Modal show={this.state.show} onHide={this.handleClose}>
-                    <AddCategory edit={false} />
+                    <AddCategory edit={false} handleClose={this.handleClose} />
                 </Modal>
             </>
         )

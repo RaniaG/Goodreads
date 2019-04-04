@@ -1,6 +1,6 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 /*fonts*/
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei');
 
 @import 'abstracts/variables';
@@ -34,6 +34,7 @@
 @import 'components/buttons';
 @import 'components/user-profile';
 @import 'components/login';
+@import 'components/rater';
 
 //pages
 

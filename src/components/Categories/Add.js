@@ -91,7 +91,7 @@ export default class AddCategory extends React.Component {
                     <Form.Label>Add New Category:</Form.Label>
                     <Form.Control type="text" placeholder="Category" size="lg" name="categoryName" value={input.categoryName} onChange={this.handleChange} className={error.categoryName && 'is-invalid'} />
                 </Form.Group>
-                <Button type="submit" size="lg" disabled={invalidSubmit}>Submit</Button>
+                <Button className="button--1" type="submit" size="lg" disabled={invalidSubmit} onClick={this.props.handleClose} >Add</Button>
             </Form>
         );
     }

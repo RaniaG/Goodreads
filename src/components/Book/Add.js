@@ -3,7 +3,7 @@ import SimpleSchema from 'simpl-schema';
 //bootstrap component
 import { Form, Row, Col, Button } from 'react-bootstrap';
 //sass file
-// import '../../sass/components/_add-book.scss';
+import '../../sass/components/_add-book.scss';
 import cardDetailed from '../Author/Add';
 import cardBrief from '../Login/Login';
 
@@ -124,7 +124,11 @@ class AddBook extends React.Component {
                             BookName
                     </Form.Label>
                         <Col sm={10}>
+<<<<<<< Updated upstream
                             <Form.Control type="text" name="bookName" placeholder="" className={'addBook-inputs ' + (error.bookName && "is-invalid")} onChange={this.handleChange} value={bookName} />
+=======
+                            <Form.Control type="text" name="bookName" placeholder="" className="addBook-inputs" className={error.bookName && "is-invalid"} onChange={this.handleChange} value={bookName} />
+>>>>>>> Stashed changes
                         </Col>
                     </Form.Group>
 
@@ -151,7 +155,11 @@ class AddBook extends React.Component {
                             Image
                     </Form.Label>
                         <Col sm={10}>
+<<<<<<< Updated upstream
                             <Form.Control type="text" name="image" placeholder="" className={'addBook-inputs' + (error.image && "is-invalid")} onChange={this.handleChange} value={image} />
+=======
+                            <Form.Control type="text" name="image" placeholder="" className="addBook-inputs" className={error.image && "is-invalid"} onChange={this.handleChange} value={image} />
+>>>>>>> Stashed changes
                         </Col>
                     </Form.Group>
 
