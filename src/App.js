@@ -10,12 +10,11 @@ import HomeComponent from './components/Home/Home';
 import CategoriesList from './components/Categories/Listing';
 import BookListing from './components/Book/Listing';
 import AuthorListing from './components/Author/Listing';
-import Navbar from './components/NavBar/Navbar';
+import UserNavbar from './components/NavBar/user';
 import SearchResults from './components/SearchResults/SearchResults';
 import Login from './components/Login/Login-nw';
 import { connect } from 'react-redux';
 
-import CategoriesAdminListing from './components/Categories/AdminListing';
 import UserProfile from './components/UserProfile/User-Profile';
 //Components
 
@@ -27,12 +26,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <>
-
-            {/* {user.type === 'user' ?
-              <UserNavbar /> :
-              <AdminNavbar />
-            } */}
-            <Navbar />
+            <UserNavbar />
             <div className="content">
               <Switch >
                 <Route path="/" exact component={HomeComponent} />
@@ -55,15 +49,6 @@ class App extends Component {
                 <Route exact path="/author/:id" component={AuthorDetails} ></Route>
 
 
-                {/* admin routes */}
-                <Route path="/admin/" exact component={CategoriesAdminListing} />
-                <Route path="/admin/categories" exact component={CategoriesAdminListing} />
-                <Route path="/admin/books" exact render={
-                  (props) => <BookListing showControls={true} showSearchbox={true} />
-                } />
-                <Route path="/admin/authors" exact render={
-                  (props) => <AuthorListing showControls={true} showSearchbox={true} />
-                } />
               </Switch>
             </div>
 

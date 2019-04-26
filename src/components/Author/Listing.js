@@ -1,13 +1,12 @@
 import React from 'react'
-import { Row, Col, Form, Modal } from 'react-bootstrap';
+import { Row, Col, Form } from 'react-bootstrap';
 import Listing from '../Listing/Listing';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faUserPlus } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import authors from '../../data/authors';
 import Rater from 'react-rater'
 import AuthorCard from './Card';
-import { connect } from 'react-redux';
-import AddAuthor from './Add';
+// import { connect } from 'react-redux';
 
 
 
@@ -19,7 +18,7 @@ import AddAuthor from './Add';
  *      
  */
 
-class AuthorListing extends React.Component {
+export default class AuthorListing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -192,19 +191,7 @@ class AuthorListing extends React.Component {
                                 }
 
                             </div>
-                            {
-                                this.props.userType === 'admin' &&
-                                <>
-                                    <div className="d-flex justify-content-end pr-5">
-                                        <button className="button button--1" onClick={this.showAddAuthor}>
-                                            <FontAwesomeIcon icon={faUserPlus} size="2x" />
-                                        </button>
-                                    </div>
-                                    <Modal show={this.state.addAuthorView} onHide={this.closeAddAuthor}>
-                                        <AddAuthor edit={false} />
-                                    </Modal>
-                                </>
-                            }
+
                             <Listing list={this.state.data} viewType='grid' viewControls={false}>
                                 <AuthorCard />
                             </Listing>
@@ -218,4 +205,3 @@ class AuthorListing extends React.Component {
         )
     }
 }
-export default connect(function (state) { return { userType: state.user.type } })(AuthorListing);

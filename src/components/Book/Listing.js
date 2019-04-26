@@ -1,15 +1,13 @@
 import React from 'react'
-import { Row, Col, Form, Badge, Modal } from 'react-bootstrap';
+import { Row, Col, Form, Badge } from 'react-bootstrap';
 import Listing from '../Listing/Listing';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimesCircle, faBookMedical } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import CardBrief from './Card-brief';
 import BookDetailedCard from './Card-Detailed';
 import books from '../../data/books';
 import Rater from 'react-rater'
-import AddBook from './Add';
 import 'react-rater/lib/react-rater.scss'
-import { connect } from 'react-redux';
 
 
 /**
@@ -20,7 +18,7 @@ import { connect } from 'react-redux';
  *      
  */
 
-class BookListing extends React.Component {
+export default class BookListing extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,14 +36,6 @@ class BookListing extends React.Component {
         this.search = this.search.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
-        this.showAddBook = this.showAddBook.bind(this);
-        this.closeAddBook = this.closeAddBook.bind(this);
-    }
-    showAddBook() {
-        this.setState({ addBookView: true });
-    }
-    closeAddBook() {
-        this.setState({ addBookView: false });
     }
     handleTextInput(event) {
         this.setState({ filters: { ...this.state.filters, search: event.target.value } });
@@ -79,6 +69,7 @@ class BookListing extends React.Component {
         this.search();
     }
     search(newFilters) {
+        debugger;
         const filters = newFilters || this.state.filters;
         const filteredData = books.filter((el) => {
             return ((filters.category.length > 0 && filters.category.includes(el.category)) || filters.category.length === 0)
@@ -241,21 +232,7 @@ class BookListing extends React.Component {
                                 }
 
                             </div>
-                            {
-                                this.props.userType === 'admin' &&
-                                <>
-                                    <div className="d-flex justify-content-end pr-5">
-                                        <button className="button button--1" onClick={this.showAddBook}>
-                                            <FontAwesomeIcon icon={faBookMedical} size="2x" />
-                                        </button>
-                                    </div>
-                                    <Modal show={this.state.addBookView} onHide={this.closeAddBook}>
 
-                                        <AddBook />
-
-                                    </Modal>
-                                </>
-                            }
                             <Listing list={this.state.data} viewType='list' viewControls={true}>
                                 <BookDetailedCard />
                                 <CardBrief />
@@ -270,4 +247,3 @@ class BookListing extends React.Component {
         )
     }
 }
-export default connect(function (state) { return { userType: state.user.type } })(BookListing);
