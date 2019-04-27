@@ -9,6 +9,7 @@ export const Reducer = (state, action) => {
             break;
         case 'LOGOUT':
             result = { ...state, user: null };
+            localStorage.removeItem('AwesomeReads');
             break;
         default:
             result = state;

@@ -10,14 +10,14 @@ export const login = async (userCredentials, history) => {
     const token = await axios.post('/users/login', userCredentials);
     debugger;
     localStorage.setItem('AwesomeReads', token.data);
-    history.push('/profile');
+    history.push('/');
 }
 
 export const signup = async (user, history) => {
     debugger;
     const token = await axios.post('/users/', user, { headers: { 'content-type': 'multipart/form-data' } });
     localStorage.setItem('AwesomeReads', token.data);
-    history.push('/profile');
+    history.push('/');
 }
 
 

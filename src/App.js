@@ -13,12 +13,15 @@ import AuthorListing from './components/Author/Listing';
 import UserNavbar from './components/NavBar/user';
 import SearchResults from './components/SearchResults/SearchResults';
 import Login from './components/Login/Login-nw';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import { connect } from 'react-redux';
+
 
 import UserProfile from './components/UserProfile/User-Profile';
 //Components
 
 class App extends Component {
+
 
   render() {
     // const { user } = this.props;
@@ -31,24 +34,20 @@ class App extends Component {
               <Switch >
                 <Route path="/" exact component={HomeComponent} />
                 <Route path="/home" exact component={HomeComponent} />
-                <Route path="/search" exact component={SearchResults} />
-                <Route path="/search/:value" exact component={SearchResults} />
-                <Route path="/search/category/:category" exact component={SearchResults} />
-                <Route path="/categories" exact component={CategoriesList} />
-                <Route path="/profile" exact component={UserProfile} />
-                <Route path="/authors" exact render={(routeProps) => (
+                <PrivateRoute path="/search" exact component={SearchResults} />
+                <PrivateRoute path="/search/:value" exact component={SearchResults} />
+                <PrivateRoute path="/search/category/:category" exact component={SearchResults} />
+                <PrivateRoute path="/categories" exact component={CategoriesList} />
+                <PrivateRoute path="/profile" exact component={UserProfile} />
+                <PrivateRoute path="/authors" exact render={(routeProps) => (
                   <AuthorListing {...routeProps} showControls={false} />
                 )} />
-                <Route path="/books" exact render={(routeProps) => (
+                <PrivateRoute path="/books" exact render={(routeProps) => (
                   <BookListing {...routeProps} showControls={false} />
                 )} />
-                <Route path="/author/:id" exact component={AuthorDetails} />
-                <Route path="/book/:id" exact component={BookDetails} />
+                <PrivateRoute path="/author/:id" exact component={AuthorDetails} />
+                <PrivateRoute path="/book/:id" exact component={BookDetails} />
                 <Route path="/login" exact component={Login} />
-
-                <Route exact path="/author/:id" component={AuthorDetails} ></Route>
-
-
               </Switch>
             </div>
 

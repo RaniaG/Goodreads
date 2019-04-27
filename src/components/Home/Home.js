@@ -9,7 +9,9 @@ import TabsComponent from '../Tabs/Tabs';
 import TabItemComponent from '../Tabs/Item';
 import AuthorCard from '../Author/Card';
 import CardSlider from '../CardSlider/Slider';
-
+import { connect } from 'react-redux';
+import { getUserInfo } from '../../API';
+import { loginAction } from '../../actions/user';
 
 class HomeComponent extends React.Component {
     state = {
@@ -18,7 +20,18 @@ class HomeComponent extends React.Component {
         newArrivals: [],
         popularAuthors: []
     }
-    componentDidMount() {
+    async componentDidMount() {
+        if (this.props.user == null && localStorage.getItem('AwesomeReads')) {
+            const props = this.props;
+            try {
+                const user = await getUserInfo();
+                props.dispatch(loginAction(user));
+            } catch (err) {
+                debugger;
+                localStorage.removeItem('AwesomeReads');
+                props.history.push('/login');
+            }
+        }
         this.setState({ mostViewed: books, featured: books, newArrivals: books, popularAuthors: authors });
     }
     render() {
@@ -31,7 +44,10 @@ class HomeComponent extends React.Component {
                         </div>
                     </Col>
                     <Col md={3}>
-                        <SignUp />
+                        {
+                            !this.props.user &&
+                            <SignUp />
+                        }
                     </Col>
                 </Row>
                 <Row className="no-gutters section justify-content-center">
@@ -67,4 +83,7 @@ class HomeComponent extends React.Component {
         )
     }
 }
-export default HomeComponent
+
+const mapStateToProps = (state) => ({ user: state.user });
+
+export default connect(mapStateToProps)(HomeComponent);
