@@ -6,7 +6,6 @@ import SimpleSchema from 'simpl-schema';
 import { signup } from '../../API';
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
-import { loginAction } from '../../actions/user';
 
 class SignUp extends React.Component {
 
@@ -106,17 +105,13 @@ class SignUp extends React.Component {
             form.append('email', email);
             form.append('password', password);
             form.append('photo', this.imageRef.current.files[0]);
-            const props = this.props;
-            const self = this;
-            signup(form)
-                .then((res) => {
-                    props.dispatch(loginAction(res.data));
-                    props.history.push('/profile');
-                })
-                .catch((err) => {
-                    debugger;
-                    self.setState({ ...self.state, signupModal: true, signupModalText: err.response.data.message });
-                });
+            try {
+                signup(form, this.props.history)
+            }
+            catch (err) {
+                this.setState({ ...this.state, signupModal: true, signupModalText: err.response.data.message });
+            }
+
         } else {
             let temp = { name: false, email: false, password: false, passwordConfirm: false };
             this.validation.validationErrors().forEach((el) => {

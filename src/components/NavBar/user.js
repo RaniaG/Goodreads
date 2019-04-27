@@ -65,5 +65,5 @@ class UserNavbar extends React.Component {
         )
     }
 }
-const mapState2Props = (state) => ({ userImage: state.user || null });
+const mapState2Props = (state) => ({ userImage: state.user ? state.user.photo : null });
 export default connect(mapState2Props)(withRouter(UserNavbar))

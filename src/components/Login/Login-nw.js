@@ -4,7 +4,6 @@ import SimpleSchema from 'simpl-schema';
 import { Form, Col, Button } from 'react-bootstrap';
 import { withRouter } from "react-router";
 import { connect } from 'react-redux';
-import { loginAction } from '../../actions/user';
 
 import { login } from '../../API';
 
@@ -67,17 +66,12 @@ class Login extends React.Component {
             });
         } else {
             //login request
-            const props = this.props;
-            const self = this;
-            login({ email: this.state.email, password: this.state.password })
-                .then((res) => {
-                    debugger;
-                    props.dispatch(loginAction(res.data, props.history));
-                    props.history.push('/profile');
-                }).catch((err) => {
-                    debugger;
-                    self.setState({ ...self.state, error: { email: true, password: true }, displayError: true })
-                })
+            try {
+                login({ email: this.state.email, password: this.state.password }, this.props.history)
+            } catch (err) {
+
+                this.setState({ ...this.state, error: { email: true, password: true }, displayError: true })
+            }
         }
         this.setState({ validated: true });
     }
