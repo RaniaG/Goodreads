@@ -13,6 +13,7 @@
         &:hover{
         color:$color-blue;
         text-decoration: none;
+        cursor: pointer;
             &:before{
                 transform: scaleX(1);
             }

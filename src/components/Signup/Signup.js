@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { Form, Overlay, Tooltip } from 'react-bootstrap';
+import { Form, Overlay, Tooltip, Modal } from 'react-bootstrap';
 import SimpleSchema from 'simpl-schema';
+import { signup } from '../../API';
+import { withRouter } from "react-router";
+import { connect } from 'react-redux';
+import { loginAction } from '../../actions/user';
 
-export default class SignUp extends React.Component {
+class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -21,8 +25,9 @@ export default class SignUp extends React.Component {
                 password: false,
                 passwordConfirm: false
             },
-            valErrors: 0
-
+            valErrors: 0,
+            signupModal: false,
+            signupModalText: ""
         }
         this.validation = new SimpleSchema({
             name: {
@@ -50,9 +55,10 @@ export default class SignUp extends React.Component {
                 optional: false
             }
         }).newContext();
+
+        this.imageRef = React.createRef();
         this.inputHandler = this.inputHandler.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.passRef = target => this.setState({ target });
     }
     inputHandler(event) {
         // debugger;
@@ -70,7 +76,6 @@ export default class SignUp extends React.Component {
 
         if (newInput.password !== newInput.passwordConfirm)
             temp.passwordConfirm = true;
-        // debugger;
         //for submit button
         let invalid = false;
         const errors = { ...this.state.error, ...temp };
@@ -94,7 +99,24 @@ export default class SignUp extends React.Component {
         );
         const errors = this.validation.validationErrors();
         if (errors.length === 0 && this.state.input.password === this.state.input.passwordConfirm) {
-
+            //api call
+            const form = new FormData();
+            const { name, email, password } = this.state.input;
+            form.append('name', name);
+            form.append('email', email);
+            form.append('password', password);
+            form.append('photo', this.imageRef.current.files[0]);
+            const props = this.props;
+            const self = this;
+            signup(form)
+                .then((res) => {
+                    props.dispatch(loginAction(res.data));
+                    props.history.push('/profile');
+                })
+                .catch((err) => {
+                    debugger;
+                    self.setState({ ...self.state, signupModal: true, signupModalText: err.response.data.message });
+                });
         } else {
             let temp = { name: false, email: false, password: false, passwordConfirm: false };
             this.validation.validationErrors().forEach((el) => {
@@ -118,44 +140,60 @@ export default class SignUp extends React.Component {
             });
         }
     }
+    handleClose = (e) => {
+        this.setState({ ...this.state, signupModal: false });
+    }
     render() {
         const { error, input } = this.state;
         return (
-            <Form className="d-flex flex-column signup" onSubmit={this.onSubmit}>
-                <div className="signup__text">Already have an account? <Link to="/Login">Sign in</Link></div>
+            <>
+                <Form className="d-flex flex-column signup" onSubmit={this.onSubmit} encType="multipart/form-data">
+                    <div className="signup__text">Already have an account? <Link to="/Login">Sign in</Link></div>
 
-                <div className="signup__header">New here? Create a free account!</div>
-                <Form.Group >
-                    <Form.Control size="lg" className={error.name && 'is-invalid'} value={input.name} type="text" name="name" placeholder="Your Name" onChange={this.inputHandler} />
-                </Form.Group>
-                <Form.Group >
-                    <Form.Control size="lg" className={error.email && 'is-invalid'} value={input.email} type="text" name="email" placeholder="Enter Email" onChange={this.inputHandler} />
-                </Form.Group>
-                <Form.Group>
+                    <div className="signup__header">New here? Create a free account!</div>
+                    <Form.Group >
+                        <Form.Control size="lg" className={error.name && 'is-invalid'} value={input.name} type="text" name="name" placeholder="Your Name" onChange={this.inputHandler} />
+                    </Form.Group>
+                    <Form.Group >
+                        <Form.Control size="lg" className={error.email && 'is-invalid'} value={input.email} type="text" name="email" placeholder="Enter Email" onChange={this.inputHandler} />
+                    </Form.Group>
+                    <Form.Group>
 
-                    <Form.Control ref={this.passRef} size="lg" className={error.password && 'is-invalid'} value={input.password} type="password" name="password" placeholder="Password" onChange={this.inputHandler} />
+                        <Form.Control ref={this.passRef} size="lg" className={error.password && 'is-invalid'} value={input.password} type="password" name="password" placeholder="Password" onChange={this.inputHandler} />
 
-                    <Overlay target={this.state.target} show={error.password} placement="left">
-                        {props => (
-                            <Tooltip  {...props}>
-                                * Password must be at least 8 characters long
-                                and contain 1 lowercase letter and 1 uppercase letter
-                                and 1 special character
+                        <Overlay target={this.state.target} show={error.password} placement="left">
+                            {props => (
+                                <Tooltip  {...props}>
+                                    * Password must be at least 8 characters long
+                                    and contain 1 lowercase letter and 1 uppercase letter
+                                    and 1 special character
                             </Tooltip>
-                        )}
-                    </Overlay>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Control size="lg" className={error.passwordConfirm && 'is-invalid'} value={input.passwordConfirm} type="password" name="passwordConfirm" placeholder="Confirm Password" onChange={this.inputHandler} />
+                            )}
+                        </Overlay>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Control size="lg" className={error.passwordConfirm && 'is-invalid'} value={input.passwordConfirm} type="password" name="passwordConfirm" placeholder="Confirm Password" onChange={this.inputHandler} />
 
-                </Form.Group>
-                <Form.Group>
-                    Image: <input type="file" name="myFile" />
-                </Form.Group>
-                <button className="signup__submit" type="submit" disabled={this.state.valErrors}>
-                    Submit
+                    </Form.Group>
+                    <Form.Group>
+                        Image: <input type="file" name="photo" ref={this.imageRef} />
+                    </Form.Group>
+                    <button className="signup__submit" type="submit" disabled={this.state.valErrors}>
+                        Submit
                 </button>
-            </Form>
+                </Form>
+
+                <Modal show={this.state.signupModal} onHide={this.handleClose}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Unable to Sign up</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>{this.state.signupModalText}</Modal.Body>
+                </Modal>
+            </>
         )
     }
 }
+
+
+
+export default connect()(withRouter(SignUp));

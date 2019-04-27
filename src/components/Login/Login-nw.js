@@ -2,9 +2,11 @@ import React from 'react';
 import SimpleSchema from 'simpl-schema';
 
 import { Form, Col, Button } from 'react-bootstrap';
-// import { error } from 'util';
+import { withRouter } from "react-router";
+import { connect } from 'react-redux';
+import { loginAction } from '../../actions/user';
 
-import '../../sass/components/_login.scss';
+import { login } from '../../API';
 
 class Login extends React.Component {
 
@@ -12,13 +14,14 @@ class Login extends React.Component {
         super(args);
 
         this.state = {
-            userName: '',
+            email: '',
             password: '',
             validated: false,
             error: {
-                userName: false,
+                email: false,
                 password: false,
             },
+            displayError: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,29 +36,25 @@ class Login extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         // const form = event.currentTarget;
-        const { userName, password } = this.state;
+        const { email, password } = this.state;
+        debugger;
         const validationContext = new SimpleSchema({
-            userName: {
+            email: {
+                regEx: SimpleSchema.RegEx.Email,
                 type: String,
                 optional: false,
-                min: 3,
-                max: 15,
             },
             password: {
                 type: String,
-                regEx: /^[a-z0-9A-Z_]{3,15}$/,
                 optional: false,
             }
         }).newContext();
-        validationContext.validate({ userName, password });
+        validationContext.validate({ email, password });
 
         if (!(validationContext.isValid())) {
-            // event.stopPropagation();
-            // validationContext.validationErrors().forEach(el => {
-            //     this.setState({ [userName]: true, [password]: true });
-            // })
+
             let errorsArr = {
-                userName: false,
+                email: false,
                 password: false,
             };
             validationContext.validationErrors().forEach((a) => {
@@ -66,13 +65,21 @@ class Login extends React.Component {
             this.setState({
                 error: { ...this.state.error, ...errorsArr },
             });
-            console.log('in if');
         } else {
-
+            //login request
+            const props = this.props;
+            const self = this;
+            login({ email: this.state.email, password: this.state.password })
+                .then((res) => {
+                    debugger;
+                    props.dispatch(loginAction(res.data, props.history));
+                    props.history.push('/profile');
+                }).catch((err) => {
+                    debugger;
+                    self.setState({ ...self.state, error: { email: true, password: true }, displayError: true })
+                })
         }
         this.setState({ validated: true });
-        console.log(validationContext.isValid());
-        console.log(validationContext.validationErrors());
     }
 
     render() {
@@ -85,23 +92,16 @@ class Login extends React.Component {
                 className="login"
             >
                 <div className="login-form">
-
+                    {this.state.displayError && <div style={{ color: 'red' }}> Email or Password are incorrect</div>}
                     <Form.Row>
-
                         <Form.Group as={Col} md="3" controlId="validationCustom04">
-                            <Form.Label>User Name</Form.Label>
-                            <Form.Control type="text" placeholder="UserName" required className={'userName login-inputs ' + (this.state.error.userName && 'is-invalid')} onChange={this.handleChange} />
-                            <Form.Control.Feedback type="invalid" className="login-invalidTxt">
-                                Please provide a valid user name.
-                        </Form.Control.Feedback>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" name="email" placeholder="Email" required className={'userName login-inputs ' + (this.state.error.email && 'is-invalid')} onChange={this.handleChange} />
                         </Form.Group>
 
                         <Form.Group as={Col} md="3" controlId="validationCustom05" className="login-passGroupForm">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" name="password" placeholder="Password" className={'login-inputs ' + (this.state.error.password && 'is-invalid')} required onChange={this.handleChange} />
-                            <Form.Control.Feedback type="invalid" className="login-invalidTxt">
-                                Please provide a valid password.
-                        </Form.Control.Feedback>
                         </Form.Group>
 
                     </Form.Row>
@@ -113,4 +113,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default connect()(withRouter(Login));

@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { logoutAction } from '../../actions/user';
 
 
 
@@ -13,6 +14,7 @@ class UserNavbar extends React.Component {
         super(props);
         this.onSubmit = this.onSubmit.bind(this);
         this.handleTextInput = this.handleTextInput.bind(this);
+        this.logout = this.logout.bind(this);
         this.state = {
             searchValue: "",
             redirect: false
@@ -26,6 +28,10 @@ class UserNavbar extends React.Component {
     }
     handleTextInput(event) {
         this.setState({ searchValue: event.target.value });
+    }
+    logout() {
+        this.props.dispatch(logoutAction());
+        this.props.history.push('/');
     }
     render() {
         const { userImage } = this.props;
@@ -44,14 +50,20 @@ class UserNavbar extends React.Component {
                     <Form onSubmit={this.onSubmit} >
                         <Form.Control size="lg" value={this.state.searchValue} type="text" placeholder="Search" onChange={this.handleTextInput} />
                     </Form>
-                    <Link to="/profile">
-                        <div className="navigation__user" style={{ backgroundImage: `url(${userImage})` }}></div>
-
-                    </Link>
+                    {userImage &&
+                        <>
+                            <Link to="/profile">
+                                <div className="navigation__user" style={{ backgroundImage: `url(${userImage})` }}></div>
+                            </Link>
+                            <div className="navigation__link" onClick={this.logout}>
+                                <small>logout</small>
+                            </div>
+                        </>
+                    }
                 </Navbar.Collapse>
             </Navbar>
         )
     }
 }
-const mapState2Props = (state) => ({ userImage: state.user.photo });
+const mapState2Props = (state) => ({ userImage: state.user || null });
 export default connect(mapState2Props)(withRouter(UserNavbar))
