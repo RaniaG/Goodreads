@@ -5,6 +5,7 @@ import BookListing from '../Book/Listing';
 import Loading from '../Loading/Loading';
 import { getUserInfo } from '../../API';
 import { loginAction } from '../../actions/user';
+import fallbackImg from '../../images/index.png';
 
 class UserProfile extends React.Component {
 
@@ -15,6 +16,7 @@ class UserProfile extends React.Component {
                 const user = await getUserInfo();
                 props.dispatch(loginAction(user));
             } catch (err) {
+                debugger;
                 localStorage.removeItem('AwesomeReads');
                 props.history.push('/login');
             }
@@ -30,7 +32,7 @@ class UserProfile extends React.Component {
                     <Col md={9} className="d-flex flex-column">
                         <Row className="p-5">
                             <Col md={3}>
-                                <Image src={user.photo} roundedCircle fluid style={{ height: '20rem', }} />
+                                <Image src={user.photo || fallbackImg} roundedCircle fluid style={{ height: '20rem', }} />
                             </Col>
                             <Col md={9} className="user-details">
                                 <div className="border-bottom pb-3 name"><strong>{user.name}</strong></div>

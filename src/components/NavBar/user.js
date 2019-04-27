@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 import { logoutAction } from '../../actions/user';
+import fallbackImage from '../../images/index.png';
 
 
 
@@ -34,7 +35,7 @@ class UserNavbar extends React.Component {
         this.props.history.push('/');
     }
     render() {
-        const { userImage } = this.props;
+        const { user } = this.props;
         return (
             <Navbar expand="lg" className=" navigation">
                 <Navbar.Brand >
@@ -50,10 +51,10 @@ class UserNavbar extends React.Component {
                     <Form onSubmit={this.onSubmit} >
                         <Form.Control size="lg" value={this.state.searchValue} type="text" placeholder="Search" onChange={this.handleTextInput} />
                     </Form>
-                    {userImage &&
+                    {user &&
                         <>
                             <Link to="/profile">
-                                <div className="navigation__user" style={{ backgroundImage: `url(${userImage})` }}></div>
+                                <div className="navigation__user" style={{ backgroundImage: `url(${user.photo || fallbackImage})` }}></div>
                             </Link>
                             <div className="navigation__link" onClick={this.logout}>
                                 <small>logout</small>
@@ -65,5 +66,5 @@ class UserNavbar extends React.Component {
         )
     }
 }
-const mapState2Props = (state) => ({ userImage: state.user ? state.user.photo : null });
+const mapState2Props = (state) => ({ user: state.user });
 export default connect(mapState2Props)(withRouter(UserNavbar))
